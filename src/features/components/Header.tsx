@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import Link from 'next/link'
 import { LogOut, User } from 'lucide-react'
 import { Button } from "@/components/ui/button"
@@ -9,7 +8,6 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 type UserType = 'バイヤー' | '回答者'
 
 export default function Header({ userType = 'バイヤー' }: { userType?: UserType }) {
-    const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     const handleLogout = () => {
         // ログアウト処理をここに実装
