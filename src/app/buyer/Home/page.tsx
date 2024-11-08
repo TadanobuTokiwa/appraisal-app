@@ -46,7 +46,7 @@ export default function MenuScreen() {
 
             <Card className="bg-white bg-opacity-90">
             <CardHeader>
-                <CardTitle className="text-2xl font-bold text-indigo-900">本日の投稿</CardTitle>
+                <CardTitle className="text-2xl font-bold text-indigo-900">本日の 田中 さんの投稿</CardTitle>
             </CardHeader>
             <CardContent>
                 <div className="overflow-x-auto -mx-6 px-6">
