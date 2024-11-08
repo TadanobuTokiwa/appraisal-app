@@ -11,11 +11,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { DollarSign, Star, FileText, Image as ImageIcon } from 'lucide-react'
+import { Star, FileText, Image as ImageIcon } from 'lucide-react'
 import Header from '@/features/components/Header'
 import Image from 'next/image'
 import Brand from '@/features/components/newPost/Brand'
 import { formSchema } from '@/lib/schemas/formSchema'
+import EstimatedPrice from '@/features/components/newPost/EstimatedPrice'
 
 export default function AssessmentForm() {
   const [imagePreview, setImagePreview] = useState<string[]>([])
@@ -59,53 +60,7 @@ export default function AssessmentForm() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Brand form={form} />
-                <FormField
-                  control={form.control}
-                  name="estimatedPrice"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center text-lg font-semibold text-gray-700">
-                        <DollarSign className="w-5 h-5 mr-2 text-green-500" />
-                        予想金額
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          type="number"
-                          value={field.value ?? ""}
-                          onChange={e => {
-                            const inputValue = e.target.value;
-                            field.onChange(inputValue === "" ? undefined : Number(inputValue));
-                          }}
-                          className="bg-white border-2 border-gray-300 focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                        />
-                      </FormControl>
-                      <div className='flex justify-end gap-2'>
-                        <Button
-                          type="button"
-                          onClick={() => field.onChange(Math.floor((field.value || 0) * 10000))}
-                          className="px-3 py-1 bg-green-500 text-white rounded-md"
-                        >
-                          万
-                        </Button>
-                        <Button
-                          type="button"
-                          onClick={() => field.onChange(Math.floor((field.value || 0) * 100000))}
-                          className="px-3 py-1 bg-green-500 text-white rounded-md"
-                        >
-                          十万
-                        </Button>
-                        <Button
-                          type="button"
-                          onClick={() => field.onChange(Math.floor((field.value || 0) * 1000000))}
-                          className="px-3 py-1 bg-green-500 text-white rounded-md"
-                        >
-                          百万
-                        </Button>
-                      </div>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <EstimatedPrice form={form} />
               </div>
               <Separator className="my-6" />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
