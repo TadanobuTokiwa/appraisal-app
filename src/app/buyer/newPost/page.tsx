@@ -11,18 +11,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { Camera, DollarSign, Star, FileText, Image as ImageIcon } from 'lucide-react'
+import { DollarSign, Star, FileText, Image as ImageIcon } from 'lucide-react'
 import Header from '@/features/components/Header'
 import Image from 'next/image'
-
-const formSchema = z.object({
-  brand: z.string().min(1, { message: "ブランド名を選択してください" }),
-  estimatedPrice: z.number().positive({ message: "予想金額を入力してください" }),
-  condition: z.string().min(1, { message: "状態ランクを選択してください" }),
-  conditionDetails: z.string().optional(),
-  notes: z.string().optional(),
-  images: z.array(z.instanceof(File)).refine((files) => files.length > 0, "少なくとも1枚の画像をアップロードしてください")
-})
+import Brand from '@/features/components/newPost/Brand'
+import { formSchema } from '@/lib/schemas/formSchema'
 
 export default function AssessmentForm() {
   const [imagePreview, setImagePreview] = useState<string[]>([])
@@ -65,31 +58,7 @@ export default function AssessmentForm() {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <FormField
-                  control={form.control}
-                  name="brand"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center text-lg font-semibold text-gray-700">
-                        <Camera className="w-5 h-5 mr-2 text-blue-500" />
-                        ブランド名
-                      </FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger className="bg-white border-2 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-md shadow-sm">
-                            <SelectValue placeholder="ブランドを選択してください" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="brand1">ブランド1</SelectItem>
-                          <SelectItem value="brand2">ブランド2</SelectItem>
-                          <SelectItem value="brand3">ブランド3</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <Brand form={form} />
                 <FormField
                   control={form.control}
                   name="estimatedPrice"
