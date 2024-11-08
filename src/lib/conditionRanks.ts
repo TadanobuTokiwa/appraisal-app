@@ -1,0 +1,1 @@
+export const conditionRanks = ["A", "AB", "B", "BC", "C"]
