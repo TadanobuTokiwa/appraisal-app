@@ -3,6 +3,7 @@ import { UseFormReturn } from "react-hook-form";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { FormSchemaType } from "../../../lib/schemas/formSchema";
+import { brandNames } from '@/lib/brandNames';
 
 interface ChildComponentProps {
     form: UseFormReturn<FormSchemaType>;
@@ -26,9 +27,9 @@ const Brand: React.FC<ChildComponentProps> = ({form}) => {
                         </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                        <SelectItem value="brand1">ブランド1</SelectItem>
-                        <SelectItem value="brand2">ブランド2</SelectItem>
-                        <SelectItem value="brand3">ブランド3</SelectItem>
+                        {brandNames.map((name, index) => {
+                            return <SelectItem key={index} value={name}>{name}</SelectItem>
+                        })}
                     </SelectContent>
                 </Select>
                 <FormMessage />
