@@ -17,8 +17,9 @@ const EstimatedPrice: React.FC<ChildComponentProps> = ({form}) => {
             render={({ field }) => (
             <FormItem>
                 <FormLabel className="flex items-center text-lg font-semibold text-gray-700">
-                <DollarSign className="w-5 h-5 mr-2 text-green-500" />
-                予想金額
+                    <DollarSign className="w-5 h-5 mr-2 text-green-500" />
+                    予想金額
+                    <div className='ml-3 text-sm text-red-500'>※必須</div>
                 </FormLabel>
                 <FormControl>
                 <Input

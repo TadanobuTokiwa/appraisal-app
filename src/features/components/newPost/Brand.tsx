@@ -19,6 +19,7 @@ const Brand: React.FC<ChildComponentProps> = ({form}) => {
                 <FormLabel className="flex items-center text-lg font-semibold text-gray-700">
                     <Camera className="w-5 h-5 mr-2 text-blue-500" />
                     ブランド名
+                    <div className='ml-3 text-sm text-red-500'>※必須</div>
                 </FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>

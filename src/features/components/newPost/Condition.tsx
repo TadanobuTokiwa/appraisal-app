@@ -17,8 +17,9 @@ const Condition: React.FC<ChildComponentProps> = ({form}) => {
             render={({ field }) => (
             <FormItem>
                 <FormLabel className="flex items-center text-lg font-semibold text-gray-700">
-                <Star className="w-5 h-5 mr-2 text-yellow-500" />
-                状態ランク
+                    <Star className="w-5 h-5 mr-2 text-yellow-500" />
+                    状態ランク
+                    <div className='ml-3 text-sm text-red-500'>※必須</div>
                 </FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
