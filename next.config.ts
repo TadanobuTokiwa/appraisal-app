@@ -2,7 +2,13 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["blogger.googleusercontent.com"],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'blogger.googleusercontent.com',
+        pathname: '/img/b/**',
+      },
+    ],
   },
 };
 
