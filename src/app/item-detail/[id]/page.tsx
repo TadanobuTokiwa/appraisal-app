@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
-import { Send, Camera, DollarSign, Star, FileText, Image as LucideImage, Hash, CreditCard, User, UserCheck } from 'lucide-react'
+import { Send, FileBox, FileDigit, Tag, DollarSign, Star, FileText, Image as LucideImage, Receipt, User, UserCheck } from 'lucide-react'
 import Link from 'next/link'
 import { DialogTitle } from '@radix-ui/react-dialog'
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
@@ -73,35 +73,38 @@ export default function AssessmentDetail() {
             <Header />
             <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
-                    <h1 className="text-3xl font-bold text-center text-indigo-900 mb-8">査定依頼詳細</h1>
+                    <div className='grid grid-cols-1 md:grid-cols-3'>
+                        <h1 className="text-3xl font-bold text-center text-indigo-900 mb-4 md:mb-8 md:col-span-2">査定依頼詳細</h1>
+                        <h4 className="text-xl font-bold text-center mb-8">ステータス : 回答済</h4>
+                    </div>
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div className="lg:col-span-2">
                         <Card className="bg-white bg-opacity-90">
                         <CardHeader>
                             <CardTitle className="flex justify-between text-2xl font-bold text-indigo-900">
                                 <strong>商品情報</strong>
-                                <Button className='bg-indigo-900'>編集</Button>
+                                <Button className='bg-indigo-900 invisible'>編集</Button>
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="grid gap-4">
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <h3 className="flex items-center text-lg font-semibold text-gray-700">
-                                <Camera className="w-5 h-5 mr-2 text-blue-500" />
+                                <Tag className="w-5 h-5 mr-2 text-blue-500" />
                                 ブランド名
                                 </h3>
                                 <p>{assessmentData.brandName}</p>
                             </div>
                             <div>
                                 <h3 className="flex items-center text-lg font-semibold text-gray-700">
-                                <FileText className="w-5 h-5 mr-2 text-purple-500" />
+                                <FileBox className="w-5 h-5 mr-2 text-purple-500" />
                                 モデル、ライン名
                                 </h3>
                                 <p>{assessmentData.modelName}</p>
                             </div>
                             <div>
                                 <h3 className="flex items-center text-lg font-semibold text-gray-700">
-                                <Hash className="w-5 h-5 mr-2 text-indigo-500" />
+                                <FileDigit className="w-5 h-5 mr-2 text-indigo-500" />
                                 型番、シリアル
                                 </h3>
                                 <p>{assessmentData.serialNumber}</p>
@@ -115,7 +118,7 @@ export default function AssessmentDetail() {
                             </div>
                             <div>
                                 <h3 className="flex items-center text-lg font-semibold text-gray-700">
-                                <CreditCard className="w-5 h-5 mr-2 text-pink-500" />
+                                <Receipt className="w-5 h-5 mr-2 text-pink-500" />
                                 回答額
                                 </h3>
                                 <p>¥{assessmentData.responseRange.min.toLocaleString()} - ¥{assessmentData.responseRange.max.toLocaleString()}</p>
