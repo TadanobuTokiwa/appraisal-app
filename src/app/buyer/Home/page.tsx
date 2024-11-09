@@ -59,6 +59,7 @@ export default function MenuScreen() {
                         <TableHead>品名</TableHead>
                         <TableHead>最終更新日時</TableHead>
                         <TableHead>ステータス</TableHead>
+                        <TableHead></TableHead>
                     </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -84,6 +85,7 @@ export default function MenuScreen() {
                             {post.status}
                             </span>
                         </TableCell>
+                        <TableCell><a href={`/item-detail/${post.id}`}>詳細</a></TableCell>
                         </TableRow>
                     ))}
                     </TableBody>
