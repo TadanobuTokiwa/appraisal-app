@@ -46,7 +46,7 @@ export default function MenuScreen() {
 
             <Card className="bg-white bg-opacity-90">
             <CardHeader>
-                <CardTitle className="text-2xl font-bold text-indigo-900">本日の投稿</CardTitle>
+                <CardTitle className="text-2xl font-bold text-indigo-900">本日の 田中 さんの投稿</CardTitle>
             </CardHeader>
             <CardContent>
                 <div className="overflow-x-auto -mx-6 px-6">
@@ -59,6 +59,7 @@ export default function MenuScreen() {
                         <TableHead>品名</TableHead>
                         <TableHead>最終更新日時</TableHead>
                         <TableHead>ステータス</TableHead>
+                        <TableHead></TableHead>
                     </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -84,6 +85,7 @@ export default function MenuScreen() {
                             {post.status}
                             </span>
                         </TableCell>
+                        <TableCell><a href={`/item-detail/${post.id}`}>詳細</a></TableCell>
                         </TableRow>
                     ))}
                     </TableBody>
