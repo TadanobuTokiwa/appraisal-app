@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 import { LogOut, User } from 'lucide-react'
 import { Button } from "@/components/ui/button"
@@ -8,11 +6,6 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 type UserType = 'バイヤー' | '回答者'
 
 export default function Header({ userType = 'バイヤー' }: { userType?: UserType }) {
-
-    const handleLogout = () => {
-        // ログアウト処理をここに実装
-        console.log('ログアウト処理')
-    }
 
     return (
         <header className="bg-white shadow-xl">
@@ -30,9 +23,9 @@ export default function Header({ userType = 'バイヤー' }: { userType?: UserT
                     <span className='font-bold'>ユーザー名</span>
                     <span className='ml-2'>({userType})</span>
                     </div>
-                    <Button variant="outline" onClick={handleLogout}>
-                    <LogOut className="w-5 h-5 mr-2" />
-                    ログアウト
+                    <Button variant="outline">
+                        <LogOut className="w-5 h-5 mr-2" />
+                        ログアウト
                     </Button>
                 </div>
 
@@ -45,9 +38,9 @@ export default function Header({ userType = 'バイヤー' }: { userType?: UserT
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuItem onClick={handleLogout}>
+                            <DropdownMenuItem>
                             <LogOut className="w-4 h-4 mr-2" />
-                            <span>ログアウト</span>
+                            <span>ログアウト</span>  
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
