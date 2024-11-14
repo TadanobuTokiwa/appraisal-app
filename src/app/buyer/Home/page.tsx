@@ -4,12 +4,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { ListPlus, Eye, ArrowRight } from 'lucide-react'
 import Header from '@/features/components/Header'
+import image from '@/public/images/IMG_0044.jpeg'
 
 // 仮のデータ
 const todaysPosts = [
-    { id: 1, brand: 'ブランドA', itemName: '商品1', lastUpdated: '2023-06-10 10:30', status: '査定中', thumbnail: '/placeholder.svg' },
-    { id: 2, brand: 'ブランドB', itemName: '商品2', lastUpdated: '2023-06-10 11:45', status: '完了', thumbnail: '/placeholder.svg' },
-    { id: 3, brand: 'ブランドC', itemName: '商品3', lastUpdated: '2023-06-10 14:20', status: '査定中', thumbnail: '/placeholder.svg' },
+    { id: 1, brand: 'ブランドA', itemName: '商品1', lastUpdated: '2023-06-10 10:30', status: '査定中', thumbnail: image },
+    { id: 2, brand: 'ブランドB', itemName: '商品2', lastUpdated: '2023-06-10 11:45', status: '完了', thumbnail: image },
+    { id: 3, brand: 'ブランドC', itemName: '商品3', lastUpdated: '2023-06-10 14:20', status: '査定中', thumbnail: image },
 ]
 
 export default function MenuScreen() {

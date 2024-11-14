@@ -9,10 +9,13 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { Send, FileBox, FileDigit, Tag, DollarSign, Star, FileText, Image as LucideImage, Receipt, User, UserCheck } from 'lucide-react'
-import Link from 'next/link'
+// import Link from 'next/link'
 import { DialogTitle } from '@radix-ui/react-dialog'
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import Header from '@/features/components/Header'
+import image1 from '@/public/images/IMG_0044.jpeg'
+import image2 from '@/public/images/IMG_0045.jpeg'
+import image3 from '@/public/images/IMG_0046.jpeg'
 
 const assessmentData = {
     brandName: "ブランドA",
@@ -24,10 +27,9 @@ const assessmentData = {
     conditionDetails: "若干の使用感あり",
     notes: "特記事項なし",
     images: [
-        "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhZln48VY7CdnZsCu09TSqtxXhT4fGfLhyphenhyphenffIUg2kt94UfNYsVr2UoH-xo9rvZX95A-HHI561vDnygAGJTvCkHL9T9reHg4DWQJNQkfdzRf9rOEuoRERkO0aBL9F7REmN2Koj8xO84CUJs/s800/pool_+bag.png",
-        "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhZln48VY7CdnZsCu09TSqtxXhT4fGfLhyphenhyphenffIUg2kt94UfNYsVr2UoH-xo9rvZX95A-HHI561vDnygAGJTvCkHL9T9reHg4DWQJNQkfdzRf9rOEuoRERkO0aBL9F7REmN2Koj8xO84CUJs/s800/pool_+bag.png",
-        "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhZln48VY7CdnZsCu09TSqtxXhT4fGfLhyphenhyphenffIUg2kt94UfNYsVr2UoH-xo9rvZX95A-HHI561vDnygAGJTvCkHL9T9reHg4DWQJNQkfdzRf9rOEuoRERkO0aBL9F7REmN2Koj8xO84CUJs/s800/pool_+bag.png",
-        "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhZln48VY7CdnZsCu09TSqtxXhT4fGfLhyphenhyphenffIUg2kt94UfNYsVr2UoH-xo9rvZX95A-HHI561vDnygAGJTvCkHL9T9reHg4DWQJNQkfdzRf9rOEuoRERkO0aBL9F7REmN2Koj8xO84CUJs/s800/pool_+bag.png",
+        image1,
+        image2,
+        image3,
     ],
     poster: "田中太郎",
     respondent: "鈴木花子"
@@ -166,7 +168,6 @@ export default function AssessmentDetail() {
                                         <DialogTitle>Hidden Dialog Title</DialogTitle>
                                     </VisuallyHidden>
                                     <DialogContent className="max-w-3xl">
-                                        <Link href={src}>
                                             <Image
                                                 src={src}
                                                 alt={`商品画像 ${index + 1}`}
@@ -174,7 +175,6 @@ export default function AssessmentDetail() {
                                                 height={800}
                                                 className="rounded-md object-contain w-full h-full"
                                             />
-                                        </Link>
                                     </DialogContent>
                                 </Dialog>
                                 ))}
