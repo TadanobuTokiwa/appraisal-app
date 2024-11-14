@@ -1,6 +1,6 @@
 import Header from '@/features/components/Header'
 import ChatCard from '@/features/components/item-detail/ChatCard'
-import ItemInfo from '@/features/components/item-detail/itemInfo'
+import ItemInfo from '@/features/components/item-detail/ItemInfo'
 
 export default function AssessmentDetail() {
     return (
