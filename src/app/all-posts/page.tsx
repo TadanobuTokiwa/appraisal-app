@@ -10,7 +10,7 @@ import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
 import Header from '@/features/components/Header'
-import ItemsList from '@/features/ItemsList'
+import ItemsList from '@/features/PostsList'
 
 export default function AllPosts() {
     const [searchDate, setSearchDate] = useState<Date | undefined>()

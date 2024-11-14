@@ -9,7 +9,7 @@ const todaysPosts = [
     { id: 3, brand: 'ブランドC', itemName: '商品3', lastUpdated: '2023-06-10 14:20', status: '査定中', thumbnail: image },
 ]
 
-const ItemsList = () => {
+const PostsList = () => {
     return (
         <div className="overflow-x-auto -mx-6 px-6">
             <Table>
@@ -47,7 +47,7 @@ const ItemsList = () => {
                             {post.status}
                             </span>
                         </TableCell>
-                        <TableCell><a href={`/item-detail/${post.id}`}>詳細</a></TableCell>
+                        <TableCell><a href={`/post-detail/${post.id}`}>詳細</a></TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -56,4 +56,4 @@ const ItemsList = () => {
     )
 }
 
-export default ItemsList
+export default PostsList

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ListPlus, Eye, ArrowRight } from 'lucide-react'
 import Header from '@/features/components/Header'
-import ItemsList from '@/features/ItemsList'
+import PostsList from '@/features/PostsList'
 
 export default function MenuScreen() {
     return (
@@ -39,7 +39,7 @@ export default function MenuScreen() {
                 <CardTitle className="text-2xl font-bold text-indigo-900">本日の 田中 さんの投稿</CardTitle>
             </CardHeader>
             <CardContent>
-                <ItemsList />
+                <PostsList />
             </CardContent>
             </Card>
         </div>
