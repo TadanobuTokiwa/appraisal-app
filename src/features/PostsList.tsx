@@ -2,14 +2,18 @@ import Image from 'next/image'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import image from '@/public/images/IMG_0044.jpeg'
 
-// 仮のデータ
-const todaysPosts = [
-    { id: 1, brand: 'ブランドA', itemName: '商品1', lastUpdated: '2023-06-10 10:30', status: '査定中', thumbnail: image },
-    { id: 2, brand: 'ブランドB', itemName: '商品2', lastUpdated: '2023-06-10 11:45', status: '完了', thumbnail: image },
-    { id: 3, brand: 'ブランドC', itemName: '商品3', lastUpdated: '2023-06-10 14:20', status: '査定中', thumbnail: image },
-]
+type propsType = {
+    posts : {
+        id: number,
+        brand: string,
+        itemName: string,
+        lastUpdated: string,
+        status: string,
+        thumbnail: string,
+    }[]
+}
 
-const PostsList = () => {
+const PostsList = ({ posts }: propsType) => {
     return (
         <div className="overflow-x-auto -mx-6 px-6">
             <Table>
@@ -25,11 +29,11 @@ const PostsList = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {todaysPosts.map((post) => (
+                    {posts.map((post) => (
                         <TableRow key={post.id}>
                         <TableCell>
                             <Image
-                            src={post.thumbnail}
+                            src={image}
                             alt={`${post.itemName} のサムネイル`}
                             width={100}
                             height={100}
