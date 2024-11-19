@@ -110,7 +110,7 @@ const ItemInfo = () => {
                         alt={`商品画像 ${index + 1}`}
                         width={200}
                         height={200}
-                        className="rounded-md object-cover w-full h-40 cursor-pointer"
+                        className="rounded-md object-cover w-full h-40 cursor-pointer hover:scale-105"
                     />
                     </DialogTrigger>
                     <VisuallyHidden>
