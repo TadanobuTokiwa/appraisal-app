@@ -95,11 +95,10 @@ export default function LoginPage() {
                 Googleでログイン
             </Button>
             <div className="text-center text-sm">
-                このアプリはテストのため{' '}
+                <p>このアプリはテストのため下記リンクをしてください。</p>
                 <Link href="/buyer/Home" className="underline text-indigo-600 hover:text-indigo-800">
-                ここをクリック
+                    バイヤー で ログイン
                 </Link>
-                {' '}してください。
             </div>
             </CardFooter>
         </Card>
