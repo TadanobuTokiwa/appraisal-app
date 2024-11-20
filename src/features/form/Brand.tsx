@@ -1,18 +1,18 @@
 import { Tag } from 'lucide-react'
-import { UseFormReturn } from "react-hook-form";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { FormSchemaType } from "../../../lib/schemas/formSchema";
 import { brandNames } from '@/lib/brandNames';
+import { Control, FieldErrors } from 'react-hook-form';
 
-interface ChildComponentProps {
-    form: UseFormReturn<FormSchemaType>;
-}
+type FormPropsType = {
+    control: Control<any>;
+    errors: FieldErrors<any>;
+};
 
-const Brand: React.FC<ChildComponentProps> = ({form}) => {
+const Brand: React.FC<FormPropsType> = ({control, errors}) => {
     return (
         <FormField
-            control={form.control}
+            control={control}
             name="brand"
             render={({ field }) => (
             <FormItem>
@@ -33,7 +33,9 @@ const Brand: React.FC<ChildComponentProps> = ({form}) => {
                         })}
                     </SelectContent>
                 </Select>
-                <FormMessage />
+                {errors?.brand && (
+                    <p className="text-red-500 text-sm mt-1">{errors.brand.message as string}</p>
+                )}
             </FormItem>
             )}
         />

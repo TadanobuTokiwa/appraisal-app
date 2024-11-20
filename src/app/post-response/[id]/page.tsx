@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import * as z from 'zod'
 import { useParams } from 'next/navigation'
 import Image from 'next/image'
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
@@ -13,6 +13,10 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { FileText, Save, Undo2, Tag, FileDigit, Receipt } from 'lucide-react'
 import Link from 'next/link'
 import Header from '@/features/components/Header'
+import { useForm } from 'react-hook-form'
+import { responseSchema } from '@/lib/schemas/formSchema'
+import { zodResolver } from '@hookform/resolvers/zod'
+import Brand from '@/features/form/Brand'
 
 // Placeholder data
 const initialAssessmentData = {
@@ -34,26 +38,24 @@ const initialAssessmentData = {
 }
 
 export default function AssessmentResponse() {
-    const [assessmentData, setAssessmentData] = useState(initialAssessmentData)
+
+    const form = useForm<z.infer<typeof responseSchema>>({
+        resolver: zodResolver(responseSchema),
+        defaultValues: {
+            brand: initialAssessmentData.brandName,
+            responseMin: initialAssessmentData.responseRange.min,
+            responseMax: initialAssessmentData.responseRange.max,
+            modelName: initialAssessmentData.modelName,
+            serialNumber: initialAssessmentData.serialNumber,
+        },
+    })
 
     const params = useParams()
     const id = params.id
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target
-        setAssessmentData(prev => ({ ...prev, [name]: value }))
-    }
-
-    const handleRangeChange = (type: 'min' | 'max', value: string) => {
-        setAssessmentData(prev => ({
-        ...prev,
-        responseRange: { ...prev.responseRange, [type]: parseInt(value) || 0 }
-        }))
-    }
-
     const handleSave = () => {
         // Here you would typically make an API call to save the data
-        console.log('Saving response data:', assessmentData)
+        console.log('Saving response data:')
         console.log("査定回答が正常に保存されました。")
         // Redirect to a confirmation page or back to the list (you'll need to implement this route)
     }
@@ -71,16 +73,7 @@ export default function AssessmentResponse() {
                 <CardContent className="grid gap-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                        <Label htmlFor="brandName" className="flex items-center text-lg font-semibold text-gray-700">
-                        <Tag className="w-5 h-5 mr-2 text-blue-500" />
-                        ブランド名
-                        </Label>
-                        <Input
-                        id="brandName"
-                        name="brandName"
-                        value={assessmentData.brandName}
-                        onChange={handleInputChange}
-                        />
+                        <Brand form={form} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="modelName" className="flex items-center text-lg font-semibold text-gray-700">

@@ -1,22 +1,23 @@
 import { useState } from "react"
-import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { FormControl, FormDescription, FormField, FormItem, FormLabel } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Image as ImageIcon } from 'lucide-react'
 import Image from 'next/image'
-import { UseFormReturn } from "react-hook-form"
-import { FormSchemaType } from "@/lib/schemas/formSchema"
+import { Control, FieldErrors, UseFormSetValue } from "react-hook-form"
 
-interface ChildComponentProps {
-    form: UseFormReturn<FormSchemaType>;
-}
+type FormPropsType = {
+    control: Control<any>;
+    setValue: UseFormSetValue<any>;
+    errors: FieldErrors<any>;
+};
 
-const Images: React.FC<ChildComponentProps> = ({form}) => {
+const Images: React.FC<FormPropsType> = ({control, setValue, errors}) => {
 
     const [imagePreview, setImagePreview] = useState<string[]>([])
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = Array.from(e.target.files || [])
-        form.setValue('images', files)
+        setValue('images', files)
         
         const previews = files.map(file => URL.createObjectURL(file))
         setImagePreview(previews)
@@ -24,7 +25,7 @@ const Images: React.FC<ChildComponentProps> = ({form}) => {
 
     return (
         <FormField
-            control={form.control}
+            control={control}
             name="images"
             render={() => (
                 <FormItem>
@@ -68,7 +69,9 @@ const Images: React.FC<ChildComponentProps> = ({form}) => {
                     />
                 </FormControl>
                 <FormDescription>少なくとも1枚の画像をアップロードしてください。複数選択可能です。</FormDescription>
-                <FormMessage />
+                {errors?.images && (
+                    <p className="text-red-500 text-sm mt-1">{errors.images.message as string}</p>
+                )}
                 {imagePreview.length > 0 && (
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                     {imagePreview.map((src, index) => (

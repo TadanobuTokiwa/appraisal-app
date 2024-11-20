@@ -1,18 +1,18 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form"
 import { DollarSign } from 'lucide-react'
-import { FormSchemaType } from "@/lib/schemas/formSchema";
-import { UseFormReturn } from "react-hook-form";
+import { Control, FieldErrors } from "react-hook-form";
 
-interface ChildComponentProps {
-    form: UseFormReturn<FormSchemaType>;
-}
+type FormPropsType = {
+    control: Control<any>;
+    errors: FieldErrors<any>;
+};
 
-const EstimatedPrice: React.FC<ChildComponentProps> = ({form}) => {
+const EstimatedPrice: React.FC<FormPropsType> = ({control, errors}) => {
     return (
         <FormField
-            control={form.control}
+            control={control}
             name="estimatedPrice"
             render={({ field }) => (
             <FormItem>
@@ -55,7 +55,9 @@ const EstimatedPrice: React.FC<ChildComponentProps> = ({form}) => {
                     百万
                 </Button>
                 </div>
-                <FormMessage />
+                {errors?.estimatedPrice && (
+                    <p className="text-red-500 text-sm mt-1">{errors.estimatedPrice.message as string}</p>
+                )}
             </FormItem>
             )}
         />
