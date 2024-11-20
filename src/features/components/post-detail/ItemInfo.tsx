@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -8,6 +10,8 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import image1 from '@/public/images/IMG_0044.jpeg'
 import image2 from '@/public/images/IMG_0045.jpeg'
 import image3 from '@/public/images/IMG_0046.jpeg'
+import Link from 'next/link'
+import { useParams } from 'next/navigation'
 
 const ItemInfo = () => {
 
@@ -29,12 +33,17 @@ const ItemInfo = () => {
         respondent: "鈴木花子"
     }
 
+    const params = useParams();
+    const id = params.id
+
     return (
         <Card className="bg-white bg-opacity-90">
         <CardHeader>
             <CardTitle className="flex justify-between text-2xl font-bold text-indigo-900">
                 <strong>商品情報</strong>
-                <Button className='bg-indigo-900 invisible'>編集</Button>
+                <Link href={`/post-response/${id}`}>
+                    <Button className='bg-indigo-900'>回答</Button>
+                </Link>
             </CardTitle>
         </CardHeader>
         <CardContent className="grid gap-4">
