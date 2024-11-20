@@ -1,24 +1,25 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { Button } from "@/components/ui/button"
-import { Form } from "@/components/ui/form"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import Header from '@/features/components/Header'
-import Brand from '@/features/components/newPost/Brand'
+import Brand from '@/features/form/Brand'
 import { formSchema } from '@/lib/schemas/formSchema'
-import EstimatedPrice from '@/features/components/newPost/EstimatedPrice'
-import Condition from '@/features/components/newPost/Condition'
-import ConditionDetails from '@/features/components/newPost/ConditionDetails'
-import Notes from '@/features/components/newPost/Notes'
-import Images from '@/features/components/newPost/Images'
+import EstimatedPrice from '@/features/form/EstimatedPrice'
+import Condition from '@/features/form/Condition'
+import ConditionDetails from '@/features/form/ConditionDetails'
+import Notes from '@/features/form/Notes'
+import Images from '@/features/form/Images'
+import { Undo2 } from 'lucide-react'
+import Link from 'next/link'
 
 export default function AssessmentForm() {
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const { control, handleSubmit, setValue, formState: {errors} } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       brand: "",
@@ -29,6 +30,7 @@ export default function AssessmentForm() {
       images: []
     },
   })
+  const methods = useForm();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values)
@@ -45,25 +47,31 @@ export default function AssessmentForm() {
           <CardDescription className="text-blue-100">商品の詳細情報を入力してください</CardDescription>
         </CardHeader>
         <CardContent className="p-6">
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Brand form={form} />
-                <EstimatedPrice form={form} />
+                <Brand control={control} errors={errors}/>
+                <EstimatedPrice control={control} errors={errors}/>
               </div>
               <Separator className="my-6" />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Condition form={form} />
-                <ConditionDetails form={form} />
+                <Condition control={control} errors={errors} />
+                <ConditionDetails control={control} />
               </div>
               <Separator className="my-6" />
-              <Notes form={form} />
-              <Images form={form} />
+              <Notes control={control} />
+              <Images control={control} setValue={setValue} errors={errors} />
               <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
                 査定を依頼する
               </Button>
             </form>
-          </Form>
+          </FormProvider>
+          <Link href={'/buyer/Home'}>
+            <Button className='w-full bg-gray-600 hover:bg-gray-700 mt-3'>
+              <Undo2 className="w-4 h-4 mr-2" />
+              <span>依頼せずに戻る</span>
+            </Button>
+          </Link>
         </CardContent>
       </Card>
     </div>

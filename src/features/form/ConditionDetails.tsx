@@ -1,17 +1,16 @@
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Textarea } from "@/components/ui/textarea"
-import { FormSchemaType } from "@/lib/schemas/formSchema";
 import { FileText } from 'lucide-react'
-import { UseFormReturn } from "react-hook-form";
+import { Control } from "react-hook-form";
 
-interface ChildComponentProps {
-    form: UseFormReturn<FormSchemaType>;
-}
+type FormPropsType = {
+    control: Control<any>;
+};
 
-const ConditionDetails: React.FC<ChildComponentProps> = ({form}) => {
+const ConditionDetails: React.FC<FormPropsType> = ({control}) => {
     return (
         <FormField
-            control={form.control}
+            control={control}
             name="conditionDetails"
             render={({ field }) => (
             <FormItem>

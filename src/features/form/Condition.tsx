@@ -1,18 +1,19 @@
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { conditionRanks } from "@/lib/conditionRanks";
-import { FormSchemaType } from "@/lib/schemas/formSchema";
 import { Star } from 'lucide-react'
-import { UseFormReturn } from "react-hook-form";
+import { Control, FieldErrors } from "react-hook-form";
 
-interface ChildComponentProps {
-    form: UseFormReturn<FormSchemaType>;
-}
+type FormPropsType = {
+    control: Control<any>;
+    errors: FieldErrors<any>;
+};
 
-const Condition: React.FC<ChildComponentProps> = ({form}) => {
+
+const Condition: React.FC<FormPropsType> = ({control, errors}) => {
     return (
         <FormField
-            control={form.control}
+            control={control}
             name="condition"
             render={({ field }) => (
             <FormItem>
@@ -33,7 +34,9 @@ const Condition: React.FC<ChildComponentProps> = ({form}) => {
                     })}
                 </SelectContent>
                 </Select>
-                <FormMessage />
+                {errors?.condition && (
+                    <p className="text-red-500 text-sm mt-1">{errors.condition.message as string}</p>
+                )}
             </FormItem>
             )}
         />
