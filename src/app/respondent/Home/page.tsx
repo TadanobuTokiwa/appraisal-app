@@ -35,7 +35,7 @@ export default function MenuScreen() {
                 <CardTitle className="text-2xl font-bold text-indigo-900">未対応 の 投稿</CardTitle>
             </CardHeader>
             <CardContent>
-                <PostsList posts={nonCompllantPosts} destination={"post-edit"}/>
+                <PostsList posts={nonCompllantPosts} />
             </CardContent>
             </Card>
         </div>

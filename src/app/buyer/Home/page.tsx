@@ -46,7 +46,7 @@ export default function MenuScreen() {
                 <CardTitle className="text-2xl font-bold text-indigo-900">本日の 田中 さんの投稿</CardTitle>
             </CardHeader>
             <CardContent>
-                <PostsList posts={todayPosts} destination={"post-detail"} />
+                <PostsList posts={todayPosts} />
             </CardContent>
             </Card>
         </div>

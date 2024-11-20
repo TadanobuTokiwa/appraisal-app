@@ -11,10 +11,9 @@ type propsType = {
         status: string,
         thumbnail: string,
     }[]
-    destination: string
 }
 
-const PostsList = ({ posts, destination }: propsType) => {
+const PostsList = ({ posts }: propsType) => {
     return (
         <div className="overflow-x-auto -mx-6 px-6">
             <Table>
@@ -52,7 +51,7 @@ const PostsList = ({ posts, destination }: propsType) => {
                             {post.status}
                             </span>
                         </TableCell>
-                        <TableCell><a href={`/${destination}/${post.id}`}>詳細</a></TableCell>
+                        <TableCell><a href={`/post-detail/${post.id}`}>詳細</a></TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

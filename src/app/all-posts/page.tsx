@@ -12,6 +12,13 @@ import { cn } from "@/lib/utils"
 import Header from '@/features/components/Header'
 import ItemsList from '@/features/PostsList'
 
+// 仮のデータ
+const todayPosts = [
+    { id: 1, brand: 'ブランドA', itemName: '商品1', lastUpdated: '2023-06-10 10:30', status: '査定中', thumbnail: "" },
+    { id: 2, brand: 'ブランドB', itemName: '商品2', lastUpdated: '2023-06-10 10:30', status: '対応済', thumbnail: "" },
+    { id: 3, brand: 'ブランドC', itemName: '商品3', lastUpdated: '2023-06-10 14:20', status: '査定中', thumbnail: "" },
+]
+
 export default function AllPosts() {
     const [searchDate, setSearchDate] = useState<Date | undefined>()
     const [searchPoster, setSearchPoster] = useState("")
@@ -75,7 +82,7 @@ export default function AllPosts() {
                             <CardTitle className="text-2xl font-bold text-indigo-900">投稿一覧</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <ItemsList />
+                            <ItemsList posts={todayPosts} />
                         </CardContent>
                     </Card>
                 </div>
