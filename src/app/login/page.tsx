@@ -4,24 +4,29 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { supabase } from '@/lib/supabase/supabaseClient'
+import { Auth, signInWithPopup, signOut } from 'firebase/auth'
+import { getFirebaseServices, googleProvider } from '@/lib/firebase/firebaseConfig'
+import { useEffect, useState } from 'react'
 
 export default function LoginPage() {
 
+    const [auth, setAuth] = useState<Auth | null>()
+
     const router = useRouter()
 
-    const handleGoogleLogin = async () => {
-        const { error } = await supabase.auth.signInWithOAuth({
-            provider: 'google',
-        });
-    
-        if (error) {
-            console.error('OAuth Error:', error.message);
-            return;
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const { auth } = getFirebaseServices();
+            setAuth(auth);
         }
-    
-        // セッションが返ってきた場合に続行
-        const session = await supabase.auth.getSession();
-        const user = session?.data.session?.user;
+    },[])
+
+
+    const handleGoogleLogin = async () => {
+        if(!auth) return
+        const result = await signInWithPopup(auth, googleProvider)
+        const user = result.user
     
         if (!user) {
             window.alert('ログインに失敗しました。');
@@ -31,14 +36,14 @@ export default function LoginPage() {
         const emailDomain = user.email?.split('@')[1];
         if (emailDomain !== 'rext.work') {
             window.alert('@rext.work以外のメールアドレスはログインできません。');
-            await supabase.auth.signOut();
+            await signOut(auth)
             return;
         }
     
         const { data: userData, error: fetchError } = await supabase
             .from('user')
             .select('id, usertype')
-            .eq('id', user.id)
+            .eq('id', user.uid)
             .single();
     
         if (fetchError || !userData) {
