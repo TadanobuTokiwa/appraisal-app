@@ -13,7 +13,7 @@ const ResponseRangeMin: React.FC<FormPropsType> = ({control, errors}) => {
     return (
         <FormField
         control={control}
-        name="responseRangeMin"
+        name="responseMin"
         render={({ field }) => (
         <FormItem>
             <FormLabel className="flex items-center text-lg font-semibold text-gray-700">

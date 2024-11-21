@@ -11,7 +11,7 @@ const ModelName: React.FC<FormPropsType> = ({control}) => {
     return (
         <FormField
         control={control}
-        name="notes"
+        name="modelName"
         render={({ field }) => (
             <FormItem>
             <FormLabel className="flex items-center text-lg font-semibold text-gray-700">

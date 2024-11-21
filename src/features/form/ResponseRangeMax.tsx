@@ -13,7 +13,7 @@ const ResponseRangeMax: React.FC<FormPropsType> = ({control, errors}) => {
     return (
         <FormField
         control={control}
-        name="responseRangeMax"
+        name="responseMax"
         render={({ field }) => (
         <FormItem>
             <FormLabel className="flex items-center text-lg font-semibold text-gray-700">

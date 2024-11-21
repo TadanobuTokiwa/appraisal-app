@@ -11,7 +11,7 @@ const SerialNumber: React.FC<FormPropsType> = ({control}) => {
     return (
         <FormField
         control={control}
-        name="notes"
+        name="serialNumber"
         render={({ field }) => (
             <FormItem>
             <FormLabel className="flex items-center text-lg font-semibold text-gray-700">

@@ -24,7 +24,7 @@ import ResponseRangeMax from '@/features/form/ResponseRangeMax'
 
 // Placeholder data
 const initialAssessmentData = {
-    brandName: "ブランドA",
+    brandName: "ルイヴィトン",
     modelName: "モデルX",
     serialNumber: "SN12345",
     responseRange: { min: 90000, max: 110000 },
@@ -47,8 +47,8 @@ export default function AssessmentResponse() {
         resolver: zodResolver(responseSchema),
         defaultValues: {
             brand: initialAssessmentData.brandName,
-            responseMin: initialAssessmentData.responseRange.min,
-            responseMax: initialAssessmentData.responseRange.max,
+            responseMin: initialAssessmentData.responseRange.min ? initialAssessmentData.responseRange.min : initialAssessmentData.buyerEstimate,
+            responseMax: initialAssessmentData.responseRange.max ? initialAssessmentData.responseRange.max : initialAssessmentData.buyerEstimate,
             modelName: initialAssessmentData.modelName,
             serialNumber: initialAssessmentData.serialNumber,
         },
