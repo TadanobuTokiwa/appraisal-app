@@ -27,7 +27,7 @@ const ResponseRangeMin: React.FC<FormPropsType> = ({control, errors}) => {
                 value={field.value ?? ""}
                 onChange={e => {
                 const inputValue = e.target.value;
-                field.onChange(inputValue === "" ? undefined : Number(inputValue));
+                field.onChange(inputValue === "" ? null : Number(inputValue));
                 }}
                 className="bg-white border-2 border-gray-300 focus:border-pink-500 focus:ring focus:ring-pink-200 focus:ring-opacity-50 rounded-md shadow-sm"
             />
@@ -55,8 +55,8 @@ const ResponseRangeMin: React.FC<FormPropsType> = ({control, errors}) => {
                 百万
             </Button>
             </div>
-            {errors?.responseRangeMin && (
-                <p className="text-red-500 text-sm mt-1">{errors.responseRangeMin.message as string}</p>
+            {errors?.responseMin && (
+                <p className="text-red-500 text-sm mt-1">{errors.responseMin.message as string}</p>
             )}
         </FormItem>
         )}

@@ -13,8 +13,8 @@ export type FormSchemaType = z.infer<typeof formSchema>;
 
 export const responseSchema = z.object({
     brand: z.string().min(1, { message: "ブランド名を選択してください" }),
-    responseMin: z.number().positive({ message: "回答額を入力してください" }),
-    responseMax: z.number().positive({ message: "回答額を入力してください" }),
+    responseMin: z.number().min(0, { message: "正しい回答額を入力してください" }),
+    responseMax: z.number().min(0, { message: "正しい回答額を入力してください" }),
     modelName: z.string().optional(),
     serialNumber: z.string().optional(),
 })

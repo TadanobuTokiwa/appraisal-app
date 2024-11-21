@@ -1,7 +1,7 @@
 'use client'
 
 import * as z from 'zod'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -58,10 +58,13 @@ export default function AssessmentResponse() {
     const params = useParams()
     const id = params.id
 
+    const router = useRouter();
+
     const onSubmit = (values: z.infer<typeof responseSchema>) => {
         // Here you would typically make an API call to save the data
         console.log(values)
         console.log("査定回答が正常に保存されました。")
+        router.push(`/post-detail/${id}`)
         // Redirect to a confirmation page or back to the list (you'll need to implement this route)
     }
 
