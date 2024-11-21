@@ -40,7 +40,7 @@ export default function AssessmentForm() {
   return (
     <>
     <Header />
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <Card className="w-full max-w-4xl mx-auto shadow-xl">
         <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-xl">
           <CardTitle className="text-3xl font-bold">査定依頼フォーム</CardTitle>

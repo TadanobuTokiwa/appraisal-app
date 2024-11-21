@@ -15,7 +15,7 @@ const Page = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+        <div className="min-h-screen flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
             <CardHeader>
             <CardTitle className="text-2xl font-bold text-center text-indigo-900">

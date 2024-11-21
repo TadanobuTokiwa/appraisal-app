@@ -15,7 +15,7 @@ export default function MenuScreen() {
     return (
         <>
         <Header />
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
             <h1 className="text-4xl font-bold text-center text-indigo-900 mb-12">バイヤー メニュー</h1>
             <div className="grid gap-6 md:grid-cols-2 mb-12">

@@ -71,7 +71,7 @@ export default function AssessmentResponse() {
     return (
         <>
             <Header />
-            <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+            <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto">
                 <h1 className="text-3xl font-bold text-center text-indigo-900 mb-8">査定回答</h1>
                 <Card className="bg-white bg-opacity-90">
