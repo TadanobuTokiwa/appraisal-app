@@ -16,15 +16,29 @@ import Notes from '@/features/form/Notes'
 import Images from '@/features/form/Images'
 import { Undo2 } from 'lucide-react'
 import Link from 'next/link'
+import { addAppraisalPost } from '@/lib/supabase/supabaseFunctions'
+import { useEffect, useState } from 'react'
+import { initializeFirebaseApp } from '@/lib/firebase/firebaseConfig'
+import { useRouter } from 'next/navigation'
+import { useAuth } from '@/context/AuthContext'
 
 export default function AssessmentForm() {
+
+  const [ isLoading, setIsLoading ] = useState<boolean>(false)
+    
+  useEffect(() => {
+      initializeFirebaseApp();
+  }, []);
+  
+  const router = useRouter();
+  const { user } = useAuth();
 
   const { control, handleSubmit, setValue, formState: {errors} } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       brand: "",
       estimatedPrice: undefined,
-      condition: "",
+      conditionRank: "",
       conditionDetails: "",
       notes: "",
       images: []
@@ -32,10 +46,32 @@ export default function AssessmentForm() {
   })
   const methods = useForm();
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
-    // TODO: ここで査定依頼を送信する処理を実装します
-  }
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsLoading(true);
+
+    try {
+        if (user && user.displayName) {
+            const { error } = await addAppraisalPost(values, user.displayName);
+            
+            if (error) {
+                // エラーが発生した場合
+                throw new Error(`エラーが発生しました: ${error}`);
+            }
+            
+            await router.push("/buyer/Home");
+        } else {
+            throw new Error("ユーザー情報が不足しています");
+        }
+    } catch (err) {
+        // エラーをキャッチしてアラートを表示
+        console.error(err);
+        window.alert(err || "エラーが発生しました");
+    } finally {
+        // 最終的にローディングを解除
+        setIsLoading(false);
+    }
+};
+
 
   return (
     <>
@@ -61,13 +97,20 @@ export default function AssessmentForm() {
               <Separator className="my-6" />
               <Notes control={control} />
               <Images control={control} setValue={setValue} errors={errors} />
-              <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-                査定を依頼する
+              <Button 
+                type="submit" 
+                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+                disabled={isLoading}>
+                {isLoading ? 
+                  "査定依頼投稿中…"
+                  :
+                  "査定を依頼する"
+                }
               </Button>
             </form>
           </FormProvider>
           <Link href={'/buyer/Home'}>
-            <Button className='w-full bg-gray-600 hover:bg-gray-700 mt-3'>
+            <Button className='w-full bg-gray-600 hover:bg-gray-700 mt-3' disabled={isLoading}>
               <Undo2 className="w-4 h-4 mr-2" />
               <span>依頼せずに戻る</span>
             </Button>
