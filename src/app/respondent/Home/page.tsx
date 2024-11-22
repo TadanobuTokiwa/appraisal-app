@@ -1,8 +1,11 @@
+'use client'
+
 import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Eye, ArrowRight } from 'lucide-react'
 import Header from '@/features/components/Header'
 import PostsList from '@/features/PostsList'
+import ProtectedRoute from '@/app/protectedRoute'
 
 // 仮のデータ
 const nonCompllantPosts = [
@@ -11,8 +14,9 @@ const nonCompllantPosts = [
 ]
 
 export default function MenuScreen() {
+    
     return (
-        <>
+        <ProtectedRoute>
         <Header />
         <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
@@ -40,6 +44,6 @@ export default function MenuScreen() {
             </Card>
         </div>
         </div>
-        </>
+        </ProtectedRoute>
     )
 }
