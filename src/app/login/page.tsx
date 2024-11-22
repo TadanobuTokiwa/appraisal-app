@@ -1,13 +1,12 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import Link from 'next/link'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { supabase } from '@/lib/supabase/supabaseClient'
 import { Auth, signInWithPopup, signOut } from 'firebase/auth'
 import { getFirebaseServices, googleProvider } from '@/lib/firebase/firebaseConfig'
 import { useEffect, useState } from 'react'
+import { fetchUser } from '@/lib/supabase/supabaseFunctions'
 
 export default function LoginPage() {
 
@@ -40,11 +39,7 @@ export default function LoginPage() {
             return;
         }
     
-        const { data: userData, error: fetchError } = await supabase
-            .from('user')
-            .select('id, usertype')
-            .eq('id', user.uid)
-            .single();
+        const { data: userData, error: fetchError } = await fetchUser(user.uid)
     
         if (fetchError || !userData) {
             router.push('/select-usertype');
@@ -61,10 +56,10 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <Card className="w-full max-w-md">
             <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold text-center">ログイン</CardTitle>
+            <CardTitle className="text-2xl font-bold text-center text-orange-500">REGATE 査定アプリ</CardTitle>
             <CardDescription className="text-center">
                 @rext.workのアカウントでログインを行ってください
             </CardDescription>
@@ -92,14 +87,6 @@ export default function LoginPage() {
                     Googleでログイン
                 </Button>
             </CardContent>
-            <CardFooter className="flex flex-col space-y-4">
-            <div className="text-center text-sm">
-                <p>このアプリはテストのため下記リンクをしてください。</p>
-                <Link href="/buyer/Home" className="underline text-indigo-600 hover:text-indigo-800">
-                    バイヤー で ログイン
-                </Link>
-            </div>
-            </CardFooter>
         </Card>
         </div>
     )
