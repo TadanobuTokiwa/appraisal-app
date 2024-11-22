@@ -1,5 +1,5 @@
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Textarea } from "@/components/ui/textarea"
+import { Input } from "@/components/ui/input";
 import { FileText } from 'lucide-react'
 import { Control } from "react-hook-form";
 
@@ -19,7 +19,7 @@ const Notes: React.FC<FormPropsType> = ({control}) => {
                 備考
             </FormLabel>
             <FormControl>
-                <Textarea
+                <Input
                 {...field}
                 className="bg-white border-2 border-gray-300 focus:border-orange-500 focus:ring focus:ring-orange-200 focus:ring-opacity-50 rounded-md shadow-sm"
                 />

@@ -22,8 +22,9 @@ const PostsList = ({ posts }: propsType) => {
                         <TableHead className="w-[120px]">サムネイル</TableHead>
                         <TableHead className="w-[80px]">ID</TableHead>
                         <TableHead>ブランド名</TableHead>
-                        <TableHead>品名</TableHead>
-                        <TableHead>最終更新日時</TableHead>
+                        <TableHead>モデル名</TableHead>
+                        <TableHead>投稿日時</TableHead>
+                        <TableHead>投稿者</TableHead>
                         <TableHead>ステータス</TableHead>
                         <TableHead></TableHead>
                     </TableRow>
@@ -44,6 +45,7 @@ const PostsList = ({ posts }: propsType) => {
                         <TableCell>{post.brand}</TableCell>
                         <TableCell>{post.itemName}</TableCell>
                         <TableCell>{post.lastUpdated}</TableCell>
+                        <TableCell>tesuto</TableCell>
                         <TableCell>
                             <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
                             post.status === '完了' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
@@ -51,7 +53,7 @@ const PostsList = ({ posts }: propsType) => {
                             {post.status}
                             </span>
                         </TableCell>
-                        <TableCell><a href={`/post-detail/${post.id}`}>詳細</a></TableCell>
+                        <TableCell><a href={`/post-detail/${post.id}`} className='border p-2'>詳細</a></TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
