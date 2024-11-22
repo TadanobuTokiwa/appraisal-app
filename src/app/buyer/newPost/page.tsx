@@ -21,6 +21,7 @@ import { useEffect, useState } from 'react'
 import { initializeFirebaseApp } from '@/lib/firebase/firebaseConfig'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
+import ProtectedRoute from '@/app/protectedRoute'
 
 export default function AssessmentForm() {
 
@@ -74,7 +75,7 @@ export default function AssessmentForm() {
 
 
   return (
-    <>
+    <ProtectedRoute>
     <Header />
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <Card className="w-full max-w-4xl mx-auto shadow-xl">
@@ -118,6 +119,6 @@ export default function AssessmentForm() {
         </CardContent>
       </Card>
     </div>
-    </>
+    </ProtectedRoute>
   )
 }

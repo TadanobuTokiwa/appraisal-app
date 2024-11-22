@@ -78,3 +78,22 @@ export const addImage = async (file: File | null, user: string | null) => {
     imageUrl = data.publicUrl;
     return { imageUrl };
 };
+
+export const getTodayAppraisalPostsByUser = async (username: string) => {
+
+    const today = new Date().toISOString().split('T')[0]; // 'YYYY-MM-DD'形式
+
+    const { data, error } = await supabase
+        .from('appraisal_posts')
+        .select('*')
+        .eq('poster', username)
+        .gte('created_at', `${today}T00:00:00`)
+        .lt('created_at', `${today}T23:59:59`);
+
+    if (error) {
+        console.error('データ取得エラー:', error.message);
+        return { data: null, error };
+    }
+
+    return { data, error: null };
+};

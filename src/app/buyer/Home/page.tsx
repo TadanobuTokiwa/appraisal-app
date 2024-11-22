@@ -1,21 +1,51 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ListPlus, Eye, ArrowRight } from 'lucide-react'
 import Header from '@/features/components/Header'
 import PostsList from '@/features/PostsList'
+import { useAuth } from '@/context/AuthContext'
+import ProtectedRoute from '@/app/protectedRoute'
+import { getTodayAppraisalPostsByUser } from '@/lib/supabase/supabaseFunctions'
+import { Loader } from "lucide-react"
+import { appraisal_posts } from '@/types/supabaseTableTypes'
 
-// 仮のデータ
-const todayPosts = [
-    { id: 1, brand: 'ブランドA', itemName: '商品1', lastUpdated: '2023-06-10 10:30', status: '査定中', thumbnail: "" },
-    { id: 2, brand: 'ブランドB', itemName: '商品2', lastUpdated: '2023-06-10 10:30', status: '対応済', thumbnail: "" },
-    { id: 3, brand: 'ブランドC', itemName: '商品3', lastUpdated: '2023-06-10 14:20', status: '査定中', thumbnail: "" },
-]
+const Page = () => {
 
-export default function MenuScreen() {
+    const { user } = useAuth();
+    const [posts, setPosts] = useState<appraisal_posts[] | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [ error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            if (user && user.displayName) {
+                try {
+                    const { data, error } = await getTodayAppraisalPostsByUser(user.displayName);
+                    if (error) {
+                        throw new Error(error.message);
+                    }
+                    setPosts(data);
+                } catch (err: any) {
+                    setError(err.message);
+                } finally {
+                    setLoading(false);
+                }
+            } else {
+                setError('ユーザー情報が見つかりません');
+                setLoading(false);
+            }
+        };
+
+        if( user ){
+            fetchPosts();
+        }
+    }, [user]);
+
     return (
-        <>
+        <ProtectedRoute>
         <Header />
         <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
@@ -45,14 +75,27 @@ export default function MenuScreen() {
 
             <Card className="bg-white bg-opacity-90">
             <CardHeader>
-                <CardTitle className="text-2xl font-bold text-indigo-900">本日の 田中 さんの投稿</CardTitle>
+                <CardTitle className="text-2xl font-bold text-indigo-900">本日の {user?.displayName} さんの投稿</CardTitle>
             </CardHeader>
             <CardContent>
-                <PostsList posts={todayPosts} />
+                {
+                    loading ?
+                    <>
+                        <Loader className="w-4 h-4 mr-2 animate-spin" />
+                        <span className="font-bold">読み込み中...</span> 
+                    </> 
+                    :
+                    error ?
+                    <span>{error}</span>
+                    :
+                    <PostsList posts={posts} />
+                }
             </CardContent>
             </Card>
         </div>
         </div>
-        </>
+        </ProtectedRoute>
     )
 }
+
+export default Page;
