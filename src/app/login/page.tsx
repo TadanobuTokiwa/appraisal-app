@@ -3,10 +3,10 @@
 import { useRouter } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { supabase } from '@/lib/supabase/supabaseClient'
 import { Auth, signInWithPopup, signOut } from 'firebase/auth'
 import { getFirebaseServices, googleProvider } from '@/lib/firebase/firebaseConfig'
 import { useEffect, useState } from 'react'
+import { fetchUser } from '@/lib/supabase/supabaseFunctions'
 
 export default function LoginPage() {
 
@@ -39,11 +39,7 @@ export default function LoginPage() {
             return;
         }
     
-        const { data: userData, error: fetchError } = await supabase
-            .from('user')
-            .select('id, usertype')
-            .eq('id', user.uid)
-            .single();
+        const { data: userData, error: fetchError } = await fetchUser(user.uid)
     
         if (fetchError || !userData) {
             router.push('/select-usertype');

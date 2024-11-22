@@ -11,3 +11,8 @@ export const addUser = async(id: string, username: string, email: string, userty
     }]);
     return { error };
 }
+
+export const fetchUser = async(id: string) => {
+    const { data, error } = await supabase.from('users').select('id, usertype').eq('id', id).single();
+    return { data, error }
+}
