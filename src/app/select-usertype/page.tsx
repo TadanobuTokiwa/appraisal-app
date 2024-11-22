@@ -1,25 +1,50 @@
 'use client'
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { useEffect, useState } from "react"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { useRouter } from 'next/navigation'
+import ProtectedRoute from "../protectedRoute"
+import { initializeFirebaseApp } from "@/lib/firebase/firebaseConfig"
+import { useAuth } from "@/context/AuthContext"
+import { addUser } from "@/lib/supabase/supabaseFunctions"
+import { Loader } from "lucide-react"
 
 const Page = () => {
-    const router = useRouter()
 
-    const handleSelection = (type: string) => {
-        // Here you would typically set the user type in your app's state or storage
-        console.log(`Selected user type: ${type}`)
-        // Redirect to the appropriate page based on user type
-        router.push(type === 'buyer' ? '/buyer/Home' : '/respondent/Home')
+    const [ isLoading, setIsLoading ] = useState<boolean>(false)
+    
+    useEffect(() => {
+        initializeFirebaseApp();
+    }, []);
+    
+    const router = useRouter();
+    const { user } = useAuth();
+
+    const handleSelection = async(type: string) => {
+        setIsLoading(true)
+        if(user && user.displayName && user.email){
+            const { error } = await addUser(user.uid, user.displayName, user.email, type)
+            if(error){
+                window.alert("【エラー】")
+                setIsLoading(false)
+                return
+            }
+            router.push(type === 'buyer' ? '/buyer/Home' : '/respondent/Home')
+        }else{
+            window.alert("【エラー】ログイン画面からやり直してください")
+            setIsLoading(false)
+        }
+        
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4">
+        <ProtectedRoute>
+        <div className="flex items-center justify-center min-h-screen p-4">
         <Card className="w-full max-w-md">
             <CardHeader>
             <CardTitle className="text-2xl font-bold text-center text-indigo-900">
-                ○○さん、はじめまして！
+                <span className="mx-2">{user?.displayName}</span>さん、はじめまして！
             </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -28,21 +53,33 @@ const Page = () => {
             </p>
             <div className="grid grid-cols-1 gap-4">
                 <Button
-                className="h-14 text-lg font-semibold"
+                className="h-14 text-lg font-semibold bg-gray-400"
                 onClick={() => handleSelection('buyer')}
+                disabled={isLoading}
                 >
                     バイヤー
                 </Button>
                 <Button
-                className="h-14 text-lg font-semibold"
-                onClick={() => handleSelection('seller')}
+                className="h-14 text-lg font-semibold bg-gray-400"
+                onClick={() => handleSelection('respondent')}
+                disabled={isLoading}
                 >
                     回答者(セラー、SCM)
                 </Button>
             </div>
             </CardContent>
+            <CardFooter>
+                {isLoading ? 
+                <div className="w-full flex items-center justify-center">
+                    <Loader className="w-4 h-4 mr-2 animate-spin" />
+                    <span className="font-bold">登録中...</span> 
+                </div>
+                : 
+                <></>}
+            </CardFooter>
         </Card>
         </div>
+        </ProtectedRoute>
     )
 }
 
