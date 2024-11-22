@@ -4,14 +4,8 @@ import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Eye, ArrowRight } from 'lucide-react'
 import Header from '@/features/components/Header'
-import PostsList from '@/features/PostsList'
+// import PostsList from '@/features/PostsList'
 import ProtectedRoute from '@/app/protectedRoute'
-
-// 仮のデータ
-const nonCompllantPosts = [
-    { id: 1, brand: 'ブランドA', itemName: '商品1', lastUpdated: '2023-06-10 10:30', status: '査定中', thumbnail: "" },
-    { id: 3, brand: 'ブランドC', itemName: '商品3', lastUpdated: '2023-06-10 14:20', status: '査定中', thumbnail: "" },
-]
 
 export default function MenuScreen() {
     
@@ -39,7 +33,7 @@ export default function MenuScreen() {
                 <CardTitle className="text-2xl font-bold text-indigo-900">未対応 の 投稿</CardTitle>
             </CardHeader>
             <CardContent>
-                <PostsList posts={nonCompllantPosts} />
+                {/*<PostsList posts={nonCompllantPosts} />*/}
             </CardContent>
             </Card>
         </div>
