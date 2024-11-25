@@ -9,18 +9,22 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
-import { getAppraisalPostById } from '@/lib/supabase/supabaseFunctions'
+import { fetchUser, getAppraisalPostById } from '@/lib/supabase/supabaseFunctions'
 import { useEffect, useState } from 'react'
 import { appraisal_posts } from '@/types/supabaseTableTypes'
 import { Skeleton } from '@/components/ui/skeleton'
+import { useAuth } from '@/context/AuthContext'
 
 const ItemInfo = () => {
 
     const [ assessmentData, setAssessmentData ] = useState<appraisal_posts | null>(null)
     const [ isLoading, setIsLoading ] = useState<boolean>(true)
+    const [ userType, setUserType ] = useState<string | null>("");
 
     const params = useParams();
     const id = Number(params.id)
+
+    const { user } = useAuth();
 
     useEffect(() => {
         const getData = async () => {
@@ -31,9 +35,19 @@ const ItemInfo = () => {
             }
             setIsLoading(false);
         };
+
+        const getUser = async () => {
+            if(user){
+                const { data: userData } = await fetchUser(user.uid)
+                if(userData){
+                    setUserType(userData.usertype)
+                }
+            }
+        }
     
         getData();
-    }, [id]);
+        getUser();
+    }, [id, user]);
 
     return (
         <Card className="bg-white bg-opacity-90">
@@ -41,9 +55,13 @@ const ItemInfo = () => {
             <CardTitle className="flex justify-between text-2xl font-bold text-indigo-900">
                 <strong>商品情報</strong>
                 <em className='text-xl pt-1'>{isLoading ? "Loading..." : "ステータス : " + assessmentData?.status}</em>
-                <Link href={`/post-response/${id}`}>
-                    <Button className='bg-indigo-900'>回答</Button>
-                </Link>
+                {userType === "" ?
+                    <Link href={`/post-response/${id}`}>
+                        <Button className='bg-indigo-900'>回答</Button>
+                    </Link>
+                    :
+                    <div></div>
+                }
             </CardTitle>
         </CardHeader>
         <CardContent className="grid gap-4">
