@@ -1,10 +1,11 @@
+import ProtectedRoute from '@/app/protectedRoute'
 import Header from '@/features/components/Header'
 import ChatCard from '@/features/components/post-detail/ChatCard'
 import ItemInfo from '@/features/components/post-detail/ItemInfo'
 
 export default function AssessmentDetail() {
     return (
-        <>
+        <ProtectedRoute>
             <Header />
             <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
@@ -21,6 +22,6 @@ export default function AssessmentDetail() {
                     </div>
                 </div>
             </div>
-        </>
+        </ProtectedRoute>
     )
 }
