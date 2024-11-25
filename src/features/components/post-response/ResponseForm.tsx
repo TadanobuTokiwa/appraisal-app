@@ -79,7 +79,7 @@ const ResponseForm = () => {
                 const newPost = {
                     ...initialAssessmentData,
                     ...values,
-                    respondent: user?.displayName,
+                    respondent: user?.uid,
                     status: "対応済み",
                 }
                 console.log(newPost)
