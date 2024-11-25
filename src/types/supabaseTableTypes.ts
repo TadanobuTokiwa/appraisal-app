@@ -6,7 +6,7 @@ export type appraisal_posts = {
     serialNumber: string,
     responseMin: number,
     responseMax: number,
-    estimatePrice: number,
+    estimatedPrice: number,
     conditionRank: string,
     conditionDetails: string,
     notes: string,
@@ -15,4 +15,11 @@ export type appraisal_posts = {
     respondent: string,
     responsed_at: string,
     status: string
+}
+
+export type user = {
+    id: string,
+    username: string,
+    email: string,
+    usertype: string,
 }

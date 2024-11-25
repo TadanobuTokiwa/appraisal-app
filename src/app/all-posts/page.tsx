@@ -25,7 +25,7 @@ export default function AllPosts() {
             <Header />
             <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
-                    <h1 className="text-3xl font-bold text-center text-indigo-900 mb-8">全ての投稿</h1>
+                    <h1 className="text-3xl font-bold text-center text-indigo-900 mb-8">全ての投稿(仮)</h1>
                     <Card className="mb-8">
                         <CardHeader>
                             <CardTitle className="text-2xl font-bold text-indigo-900">検索</CardTitle>

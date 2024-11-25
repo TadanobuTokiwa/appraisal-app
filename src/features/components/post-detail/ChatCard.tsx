@@ -49,7 +49,7 @@ const ChatCard = () => {
     return (
         <Card className="bg-white bg-opacity-90 h-full flex flex-col">
             <CardHeader>
-                <CardTitle className="text-2xl font-bold text-indigo-900">チャット</CardTitle>
+                <CardTitle className="text-2xl font-bold text-indigo-900">チャット(仮)</CardTitle>
             </CardHeader>
             <CardContent className="flex-grow flex flex-col">
                 <ScrollArea className="flex-grow mb-4 h-[calc(100vh-400px)] lg:h-[calc(100vh-300px)]">

@@ -51,8 +51,8 @@ export default function AssessmentForm() {
     setIsLoading(true);
 
     try {
-        if (user && user.displayName) {
-            const { error } = await addAppraisalPost(values, user.displayName);
+        if (user && user.uid) {
+            const { error } = await addAppraisalPost(values, user.uid);
             
             if (error) {
                 // エラーが発生した場合
