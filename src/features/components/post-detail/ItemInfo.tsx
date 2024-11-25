@@ -11,13 +11,16 @@ import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import { fetchUser, getAppraisalPostById } from '@/lib/supabase/supabaseFunctions'
 import { useEffect, useState } from 'react'
-import { appraisal_posts } from '@/types/supabaseTableTypes'
+import { appraisal_posts, user } from '@/types/supabaseTableTypes'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useAuth } from '@/context/AuthContext'
+import lineWorksIcon from '@/public/icons/LW_BI_Appicon.png'
 
 const ItemInfo = () => {
 
     const [ assessmentData, setAssessmentData ] = useState<appraisal_posts | null>(null)
+    const [ poster, setPoster ] = useState<user | null>(null)
+    const [ respondent, setRespondent ] = useState<user | null>(null)
     const [ isLoading, setIsLoading ] = useState<boolean>(true)
     const [ userType, setUserType ] = useState<string | null>("");
 
@@ -32,6 +35,15 @@ const ItemInfo = () => {
             const result = await getAppraisalPostById(id);
             if (result) {
                 setAssessmentData(result[0]);
+                
+                const { data: posterData } = await fetchUser(result[0].poster);
+                if( posterData ){
+                    setPoster(posterData)
+                }
+                const { data: respodentData } = await fetchUser(result[0].respondent);
+                if( respodentData ){
+                    setRespondent(respodentData)
+                }
             }
             setIsLoading(false);
         };
@@ -190,26 +202,48 @@ const ItemInfo = () => {
                 
             </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
                 <h3 className="flex items-center text-lg font-semibold text-gray-700">
                 <User className="w-5 h-5 mr-2 text-blue-500" />
                 投稿者
                 </h3>
-                {isLoading ? 
-                    <Skeleton className='w-full h-5 rounded-full'></Skeleton> :
-                    <p>{assessmentData?.poster}</p>
-                }
+                <div className='grid grid-cols-3'>
+                    {isLoading ? 
+                        <Skeleton className='w-full h-5 rounded-full'></Skeleton> :
+                        <p>{poster?.username}</p>
+                    }
+                    {isLoading ? 
+                        <Skeleton className='w-full h-5 col-span-2 rounded-full'></Skeleton> :
+                        poster?.email ?
+                        <Link className='col-span-2' target='_blank' rel='noopener noreferrer' href={`https://line.worksmobile.com/message/send?version=26&emailList=${poster.email}`}>
+                            <Image src={lineWorksIcon} alt={"icon"} width={24} height={24}/>
+                        </Link>
+                        :
+                        <div></div>
+                    }
+                </div>
             </div>
             <div>
                 <h3 className="flex items-center text-lg font-semibold text-gray-700">
                 <UserCheck className="w-5 h-5 mr-2 text-green-500" />
                 回答担当者
                 </h3>
-                {isLoading ? 
-                    <Skeleton className='w-full h-5 rounded-full'></Skeleton> :
-                    <p>{assessmentData?.respondent}</p>
-                }
+                <div className='grid grid-cols-3'>
+                    {isLoading ? 
+                        <Skeleton className='w-full h-5 rounded-full'></Skeleton> :
+                        <p>{respondent?.username}</p>
+                    }
+                    {isLoading ? 
+                        <Skeleton className='w-full h-5 col-span-2 rounded-full'></Skeleton> :
+                        respondent?.email ?
+                        <Link className='col-span-2' target='_blank' rel='noopener noreferrer' href={`https://line.worksmobile.com/message/send?version=26&emailList=${respondent.email}`}>
+                            <Image src={lineWorksIcon} alt={"icon"} width={24} height={24}/>
+                        </Link>
+                        :
+                        <div></div>
+                    }
+                </div>
             </div>
             </div>
         </CardContent>

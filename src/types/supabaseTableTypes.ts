@@ -16,3 +16,10 @@ export type appraisal_posts = {
     responsed_at: string,
     status: string
 }
+
+export type user = {
+    id: string,
+    username: string,
+    email: string,
+    usertype: string,
+}
