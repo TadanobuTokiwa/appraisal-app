@@ -41,6 +41,7 @@ const ItemInfo = () => {
         <CardHeader>
             <CardTitle className="flex justify-between text-2xl font-bold text-indigo-900">
                 <strong>商品情報</strong>
+                <em className='text-xl pt-1'>ステータス : 回答済</em>
                 <Link href={`/post-response/${id}`}>
                     <Button className='bg-indigo-900'>回答</Button>
                 </Link>
