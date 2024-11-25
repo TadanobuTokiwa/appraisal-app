@@ -6,7 +6,7 @@ export type appraisal_posts = {
     serialNumber: string,
     responseMin: number,
     responseMax: number,
-    estimatePrice: number,
+    estimatedPrice: number,
     conditionRank: string,
     conditionDetails: string,
     notes: string,

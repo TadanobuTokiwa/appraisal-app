@@ -1,3 +1,4 @@
+import { appraisal_posts } from "@/types/supabaseTableTypes";
 import { FormSchemaType } from "../schemas/formSchema";
 import { supabase } from "./supabaseClient";
 
@@ -96,4 +97,23 @@ export const getTodayAppraisalPostsByUser = async (username: string) => {
     }
 
     return { data, error: null };
+};
+
+export const getAppraisalPostById = async (id: number):Promise<appraisal_posts[] | null> => {
+    try {
+        const { data, error } = await supabase
+            .from('appraisal_posts')
+            .select('*')
+            .eq('id', id)
+
+        if (error) {
+            console.error('Error fetching record:', error);
+            return null;
+        }
+        return data;
+
+    } catch (error) {
+        console.error('Unexpected error:', error);
+        return null;
+    }
 };
