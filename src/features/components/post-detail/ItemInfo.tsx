@@ -98,7 +98,7 @@ const ItemInfo = () => {
                     <p>
                         {assessmentData?.responseMin &&  assessmentData?.responseMax ? 
                         "¥" + assessmentData?.responseMin.toLocaleString() + " - " + 
-                        assessmentData?.responseMax.toLocaleString() : ""}
+                        "¥" + assessmentData?.responseMax.toLocaleString() : ""}
                     </p>
                 }
             </div>
