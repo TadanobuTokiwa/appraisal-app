@@ -21,7 +21,7 @@ const Brand: React.FC<FormPropsType> = ({control, errors}) => {
                     ブランド名
                     <div className='ml-3 text-sm text-red-500'>※必須</div>
                 </FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                         <SelectTrigger className="bg-white border-2 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-md shadow-sm">
                             <SelectValue placeholder="ブランドを選択してください" />

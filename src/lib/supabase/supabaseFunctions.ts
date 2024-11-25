@@ -117,3 +117,28 @@ export const getAppraisalPostById = async (id: number):Promise<appraisal_posts[]
         return null;
     }
 };
+
+export const updateAppraisalPostById = async (id: number, newValues: Partial<appraisal_posts>) => {
+
+    const newPost = {
+        ...newValues,
+        responsed_at: new Date()
+    }
+
+    try {
+        const { error } = await supabase
+            .from('appraisal_posts')
+            .update(newPost)
+            .eq('id', id);
+
+        if (error) {
+            console.error('Error updating record:', error);
+            return null;
+        }
+
+        return error;
+    } catch (error) {
+        console.error('Unexpected error:', error);
+        return null;
+    }
+};
