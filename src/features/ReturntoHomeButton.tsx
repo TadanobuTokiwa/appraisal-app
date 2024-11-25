@@ -21,7 +21,6 @@ const ReturntoHomeButton = () => {
         }else{
             window.alert("エラーが発生しました")
         }
-
     }
 
     return (
