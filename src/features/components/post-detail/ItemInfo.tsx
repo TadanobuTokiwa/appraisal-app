@@ -64,7 +64,7 @@ const ItemInfo = () => {
     return (
         <Card className="bg-white bg-opacity-90">
         <CardHeader>
-            <CardTitle className="flex justify-between text-2xl font-bold text-indigo-900">
+            <CardTitle className="grid grid-cols-1 sm:flex sm:justify-between text-2xl font-bold text-indigo-900">
                 <strong>商品情報</strong>
                 <em className='text-xl pt-1'>{isLoading ? "Loading..." : "ステータス : " + assessmentData?.status}</em>
                 {userType === "" ?
