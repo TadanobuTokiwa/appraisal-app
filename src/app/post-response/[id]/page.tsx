@@ -1,9 +1,10 @@
 import Header from '@/features/components/Header'
 import ResponseForm from '@/features/components/post-response/ResponseForm'
+import ProtectedRoute from '@/app/protectedRoute'
 
 export default function AssessmentResponse() {
     return (
-        <>
+        <ProtectedRoute>
             <Header />
             <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto">
@@ -11,6 +12,6 @@ export default function AssessmentResponse() {
                 <ResponseForm />
             </div>
             </div>
-        </>
+        </ProtectedRoute>
     )
 }
