@@ -216,9 +216,11 @@ const ItemInfo = () => {
                     {isLoading ? 
                         <Skeleton className='w-full h-5 col-span-2 rounded-full'></Skeleton> :
                         poster?.email ?
-                        <Link className='col-span-2' target='_blank' rel='noopener noreferrer' href={`https://line.worksmobile.com/message/send?version=26&emailList=${poster.email}`}>
-                            <Image src={lineWorksIcon} alt={"icon"} width={24} height={24}/>
-                        </Link>
+                        <div className='col-span-2'>
+                            <Link className='inline-block' target='_blank' rel='noopener noreferrer' href={`https://line.worksmobile.com/message/send?version=26&emailList=${poster.email}`}>
+                                <Image src={lineWorksIcon} alt={"icon"} width={24} height={24}/>
+                            </Link>
+                        </div>
                         :
                         <div></div>
                     }
@@ -237,9 +239,11 @@ const ItemInfo = () => {
                     {isLoading ? 
                         <Skeleton className='w-full h-5 col-span-2 rounded-full'></Skeleton> :
                         respondent?.email ?
-                        <Link className='col-span-2' target='_blank' rel='noopener noreferrer' href={`https://line.worksmobile.com/message/send?version=26&emailList=${respondent.email}`}>
-                            <Image src={lineWorksIcon} alt={"icon"} width={24} height={24}/>
-                        </Link>
+                        <div className='col-span-2'>
+                            <Link className="inline-block" target='_blank' rel='noopener noreferrer' href={`https://line.worksmobile.com/message/send?version=26&emailList=${respondent.email}`}>
+                                <Image src={lineWorksIcon} alt={"icon"} width={24} height={24}/>
+                            </Link>
+                        </div>
                         :
                         <div></div>
                     }
