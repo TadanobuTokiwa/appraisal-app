@@ -35,9 +35,12 @@ export const addAppraisalPost = async (values: FormSchemaType, userid: string, u
 
         const imageUrls = await getimageUrls();
 
+        const utcDate = new Date();
+        const jstDate = new Date(utcDate.getTime() + 9 * 60 * 60 * 1000);
+
         const newPost = {
             ...values,
-            created_at: new Date(),
+            created_at: jstDate,
             poster: userid,
             posterName: username,
             images: imageUrls,
@@ -62,8 +65,10 @@ export const addImage = async (file: File | null, user: string | null) => {
         return { filePath: null, imageUrl: null };
     }
 
-    const date = new Date().toLocaleDateString('sv-SE');
-    const filePath = `${date}/${file.name}`;
+    const now = new Date()
+    const date = now.toLocaleDateString('sv-SE');
+    const time = "" + now.getHours() + now.getMinutes() + now.getSeconds()
+    const filePath = `${date}/${time}_${file.name}`;
     let imageUrl = '';
 
     const { error } = await supabase.storage.from('images').upload(filePath, file);
@@ -121,9 +126,12 @@ export const getAppraisalPostById = async (id: number):Promise<appraisal_posts[]
 
 export const updateAppraisalPostById = async (id: number, newValues: Partial<appraisal_posts>) => {
 
+    const utcDate = new Date();
+    const jstDate = new Date(utcDate.getTime() + 9 * 60 * 60 * 1000);
+
     const newPost = {
         ...newValues,
-        responsed_at: new Date()
+        responsed_at: jstDate,
     }
 
     try {
