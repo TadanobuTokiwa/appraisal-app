@@ -9,8 +9,9 @@ import PostsList from '@/features/PostsList'
 import { useAuth } from '@/context/AuthContext'
 import ProtectedRoute from '@/app/protectedRoute'
 import { getTodayAppraisalPostsByUser } from '@/lib/supabase/supabaseFunctions'
-import { Loader } from "lucide-react"
+import { Loader, RefreshCw } from "lucide-react"
 import { appraisal_posts } from '@/types/supabaseTableTypes'
+import { Button } from '@/components/ui/button'
 
 const Page = () => {
 
@@ -18,9 +19,11 @@ const Page = () => {
     const [posts, setPosts] = useState<appraisal_posts[] | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [ error, setError] = useState<string | null>(null);
+    const [ reload, setReload ] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchPosts = async () => {
+            setLoading(true);
             if (user && user.uid) {
                 try {
                     const { data, error } = await getTodayAppraisalPostsByUser(user.uid);
@@ -42,7 +45,7 @@ const Page = () => {
         if( user ){
             fetchPosts();
         }
-    }, [user]);
+    }, [user, reload]);
 
     return (
         <ProtectedRoute>
@@ -75,7 +78,13 @@ const Page = () => {
 
             <Card className="bg-white bg-opacity-90">
             <CardHeader>
-                <CardTitle className="text-2xl font-bold text-indigo-900">本日の {user?.displayName} さんの投稿</CardTitle>
+                <CardTitle className="text-2xl font-bold text-indigo-900 flex justify-between">
+                    本日の {user?.displayName} さんの投稿
+                    <Button onClick={() => setReload(prev => !prev)}>
+                        <RefreshCw />
+                        更新
+                    </Button>
+                </CardTitle>
             </CardHeader>
             <CardContent>
                 {

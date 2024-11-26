@@ -2,18 +2,20 @@
 
 import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Eye, ArrowRight, Loader } from 'lucide-react'
+import { Eye, ArrowRight, Loader, RefreshCw } from 'lucide-react'
 import Header from '@/features/components/Header'
 import PostsList from '@/features/PostsList'
 import ProtectedRoute from '@/app/protectedRoute'
 import { useEffect, useState } from 'react'
 import { appraisal_posts } from '@/types/supabaseTableTypes'
 import { getNotSupportedPosts } from '@/lib/supabase/supabaseFunctions'
+import { Button } from '@/components/ui/button'
 
 export default function MenuScreen() {
 
     const [ notSupportedList, setNotSupportedList ] = useState<appraisal_posts[] | null>(null)
-    const [ isloading, setIsloading ] = useState(true)
+    const [ isloading, setIsloading ] = useState<boolean>(true)
+    const [ reload, setReload ] = useState<boolean>(true)
 
     useEffect(() => {
         const getList = async() => {
@@ -28,7 +30,7 @@ export default function MenuScreen() {
         }
 
         getList()
-    }, [])
+    }, [reload])
     
     return (
         <ProtectedRoute>
@@ -51,7 +53,13 @@ export default function MenuScreen() {
 
             <Card className="bg-white bg-opacity-90">
             <CardHeader>
-                <CardTitle className="text-2xl font-bold text-indigo-900">未対応 の 投稿</CardTitle>
+                <CardTitle className="text-2xl font-bold text-indigo-900 flex justify-between">
+                    未対応 の 投稿
+                    <Button onClick={() => setReload(prev => !prev)}>
+                        <RefreshCw />
+                        更新
+                    </Button>
+                </CardTitle>
             </CardHeader>
             <CardContent>
                 {

@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { FileBox, FileDigit, Tag, DollarSign, Star, FileText, Image as LucideImage, Receipt, User, UserCheck } from 'lucide-react'
+import { FileBox, FileDigit, Tag, DollarSign, Star, FileText, Image as LucideImage, Receipt, User, UserCheck, RefreshCw } from 'lucide-react'
 import { DialogTitle } from '@radix-ui/react-dialog'
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
@@ -23,6 +23,7 @@ const ItemInfo = () => {
     const [ respondent, setRespondent ] = useState<user | null>(null)
     const [ isLoading, setIsLoading ] = useState<boolean>(true)
     const [ userType, setUserType ] = useState<string | null>("");
+    const [ reload, setReload ] = useState<boolean>(true);
 
     const params = useParams();
     const id = Number(params.id)
@@ -47,7 +48,11 @@ const ItemInfo = () => {
             }
             setIsLoading(false);
         };
+    
+        getData();
+    }, [id, reload]);
 
+    useEffect(() => {
         const getUser = async () => {
             if(user){
                 const { data: userData } = await fetchUser(user.uid)
@@ -56,10 +61,9 @@ const ItemInfo = () => {
                 }
             }
         }
-    
-        getData();
-        getUser();
-    }, [id, user]);
+
+        getUser()
+    },[user])
 
     return (
         <Card className="bg-white bg-opacity-90">
@@ -67,13 +71,21 @@ const ItemInfo = () => {
             <CardTitle className="grid grid-cols-1 sm:flex sm:justify-between text-2xl font-bold text-indigo-900">
                 <strong>商品情報</strong>
                 <em className='text-xl pt-1'>{isLoading ? "Loading..." : "ステータス : " + assessmentData?.status}</em>
-                {userType === "respondent" ?
-                    <Link href={`/post-response/${id}`}>
-                        <Button className='bg-indigo-900'>回答</Button>
-                    </Link>
-                    :
-                    <div></div>
-                }
+                <div className='flex'>
+                    <Button onClick={() => setReload(prev => !prev)}>
+                        <RefreshCw />
+                        更新
+                    </Button>
+                    {userType === "respondent" ?
+                        <Button className='bg-indigo-900 ml-2'>
+                            <Link href={`/post-response/${id}`}>
+                                回答
+                            </Link>
+                        </Button>
+                        :
+                        <div></div>
+                    }
+                </div>
             </CardTitle>
         </CardHeader>
         <CardContent className="grid gap-4">
@@ -84,7 +96,7 @@ const ItemInfo = () => {
                 ブランド名
                 </h3>
                 {isLoading ? 
-                    <Skeleton className='w-full h-5 rounded-full'></Skeleton> :
+                    <Skeleton className='w-full h-6 rounded-full'></Skeleton> :
                     <p>{assessmentData?.brand}</p>
                 }
             </div>
@@ -94,7 +106,7 @@ const ItemInfo = () => {
                 モデル、ライン名
                 </h3>
                 {isLoading ? 
-                    <Skeleton className='w-full h-5 rounded-full'></Skeleton> :
+                    <Skeleton className='w-full h-6 rounded-full'></Skeleton> :
                     <p>{assessmentData?.modelName}</p>
                 }
             </div>
@@ -104,7 +116,7 @@ const ItemInfo = () => {
                 型番、シリアル
                 </h3>
                 {isLoading ? 
-                    <Skeleton className='w-full h-5 rounded-full'></Skeleton> :
+                    <Skeleton className='w-full h-6 rounded-full'></Skeleton> :
                     <p>{assessmentData?.serialNumber}</p>
                 }
             </div>
@@ -114,7 +126,7 @@ const ItemInfo = () => {
                 バイヤー予想額
                 </h3>
                 {isLoading ?
-                    <Skeleton className='w-full h-5 rounded-full'></Skeleton> :
+                    <Skeleton className='w-full h-6 rounded-full'></Skeleton> :
                     <p>¥{assessmentData?.estimatedPrice ? assessmentData?.estimatedPrice.toLocaleString() : ""}</p>
                 }
             </div>
@@ -124,7 +136,7 @@ const ItemInfo = () => {
                 回答額
                 </h3>
                 {isLoading ?
-                    <Skeleton className='w-full h-5 rounded-full'></Skeleton> :
+                    <Skeleton className='w-full h-6 rounded-full'></Skeleton> :
                     <p>
                         {assessmentData?.responseMin &&  assessmentData?.responseMax ? 
                         "¥" + assessmentData?.responseMin.toLocaleString() + " - " + 
@@ -138,7 +150,7 @@ const ItemInfo = () => {
                 状態ランク
                 </h3>
                 {isLoading ? 
-                    <Skeleton className='w-full h-5 rounded-full'></Skeleton> :
+                    <Skeleton className='w-full h-6 rounded-full'></Skeleton> :
                     <p>{assessmentData?.conditionRank}</p>
                 }
             </div>
@@ -149,7 +161,7 @@ const ItemInfo = () => {
                 状態補足
             </h3>
                 {isLoading ? 
-                    <Skeleton className='w-full h-5 rounded-full'></Skeleton> :
+                    <Skeleton className='w-full h-6 rounded-full'></Skeleton> :
                     <p>{assessmentData?.conditionDetails}</p>
                 }
             </div>
@@ -159,7 +171,7 @@ const ItemInfo = () => {
                 備考
             </h3>
                 {isLoading ? 
-                    <Skeleton className='w-full h-5 rounded-full'></Skeleton> :
+                    <Skeleton className='w-full h-6 rounded-full'></Skeleton> :
                     <p>{assessmentData?.notes}</p>
                 }
             </div>
@@ -214,7 +226,7 @@ const ItemInfo = () => {
                         <p>{poster?.username}</p>
                     }
                     {isLoading ? 
-                        <Skeleton className='w-full h-5 col-span-2 rounded-full'></Skeleton> :
+                        <></> :
                         poster?.email ?
                         <div className='col-span-2'>
                             <Link className='inline-block' target='_blank' rel='noopener noreferrer' href={`https://line.worksmobile.com/message/send?version=26&emailList=${poster.email}`}>
@@ -237,7 +249,7 @@ const ItemInfo = () => {
                         <p>{respondent?.username}</p>
                     }
                     {isLoading ? 
-                        <Skeleton className='w-full h-5 col-span-2 rounded-full'></Skeleton> :
+                        <></> :
                         respondent?.email ?
                         <div className='col-span-2'>
                             <Link className="inline-block" target='_blank' rel='noopener noreferrer' href={`https://line.worksmobile.com/message/send?version=26&emailList=${respondent.email}`}>
