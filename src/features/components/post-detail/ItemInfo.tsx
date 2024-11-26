@@ -198,7 +198,7 @@ const ItemInfo = () => {
                                 <DialogTitle>Hidden Dialog Title</DialogTitle>
                             </VisuallyHidden>
                             <DialogContent className="max-w-3xl">
-                                    <Link href={src}>
+                                    <Link href={src} target='_blank' rel='noopener noreferrer' >
                                         <Image
                                             src={src}
                                             alt={`商品画像 ${index + 1}`}
