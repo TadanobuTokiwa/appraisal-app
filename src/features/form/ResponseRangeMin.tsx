@@ -32,28 +32,40 @@ const ResponseRangeMin: React.FC<FormPropsType> = ({control, errors}) => {
                 className="bg-white border-2 border-gray-300 focus:border-pink-500 focus:ring focus:ring-pink-200 focus:ring-opacity-50 rounded-md shadow-sm"
             />
             </FormControl>
-            <div className='flex justify-end gap-2'>
-            <Button
-                type="button"
-                onClick={() => field.onChange(Math.floor((field.value || 0) * 10000))}
-                className="px-3 py-1 bg-pink-500 hover:bg-pink-600 text-white rounded-md"
-            >
-                万
-            </Button>
-            <Button
-                type="button"
-                onClick={() => field.onChange(Math.floor((field.value || 0) * 100000))}
-                className="px-3 py-1 bg-pink-500 hover:bg-pink-600 text-white rounded-md"
-            >
-                十万
-            </Button>
-            <Button
-                type="button"
-                onClick={() => field.onChange(Math.floor((field.value || 0) * 1000000))}
-                className="px-3 py-1 bg-pink-500 hover:bg-pink-600 text-white rounded-md"
-            >
-                百万
-            </Button>
+            <div className="flex justify-between">
+                <div>
+                    <Button
+                        type="button"
+                        onClick={() => field.onChange(0)}
+                        className="px-2 py-1 bg-gray-700 hover:bg-gray-800 text-white rounded-md"
+                    >
+                        クリア
+                    </Button>
+                </div>
+
+                <div className='flex justify-end gap-2'>
+                    <Button
+                        type="button"
+                        onClick={() => field.onChange(Math.floor((field.value || 0) * 10000))}
+                        className="px-3 py-1 bg-pink-500 hover:bg-pink-600 text-white rounded-md"
+                    >
+                        万
+                    </Button>
+                    <Button
+                        type="button"
+                        onClick={() => field.onChange(Math.floor((field.value || 0) * 100000))}
+                        className="px-3 py-1 bg-pink-500 hover:bg-pink-600 text-white rounded-md"
+                    >
+                        十万
+                    </Button>
+                    <Button
+                        type="button"
+                        onClick={() => field.onChange(Math.floor((field.value || 0) * 1000000))}
+                        className="px-3 py-1 bg-pink-500 hover:bg-pink-600 text-white rounded-md"
+                    >
+                        百万
+                    </Button>
+                </div>
             </div>
             {errors?.responseMin && (
                 <p className="text-red-500 text-sm mt-1">{errors.responseMin.message as string}</p>
