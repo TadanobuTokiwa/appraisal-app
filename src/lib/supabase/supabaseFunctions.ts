@@ -19,12 +19,12 @@ export const fetchUser = async(id: string) => {
     return { data, error }
 }
 
-export const addAppraisalPost = async (values: FormSchemaType, username: string) => {
+export const addAppraisalPost = async (values: FormSchemaType, userid: string, username: string) => {
     try {
         const getimageUrls = async () => {
             const promises = values.images.map(async (image) => {
                 try {
-                    const { imageUrl } = await addImage(image, username);
+                    const { imageUrl } = await addImage(image, userid);
                     return imageUrl;
                 } catch (error) {
                     throw new Error(`Image upload failed: ${error}`);
@@ -38,7 +38,8 @@ export const addAppraisalPost = async (values: FormSchemaType, username: string)
         const newPost = {
             ...values,
             created_at: new Date(),
-            poster: username,
+            poster: userid,
+            posterName: username,
             images: imageUrls,
         };
 

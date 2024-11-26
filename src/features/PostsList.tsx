@@ -41,10 +41,10 @@ const PostsList = ({ posts }: propsType) => {
                             <TableCell>{post.brand}</TableCell>
                             <TableCell>{post.modelName}</TableCell>
                             <TableCell>{date + " " + time}</TableCell>
-                            <TableCell>{post.poster}</TableCell>
+                            <TableCell>{post.posterName}</TableCell>
                             <TableCell>
                                 <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                                post.status === '完了' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                                post.status === '対応済み' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
                                 }`}>
                                 {post.status}
                                 </span>

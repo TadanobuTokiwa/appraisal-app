@@ -51,11 +51,10 @@ export default function AssessmentForm() {
     setIsLoading(true);
 
     try {
-        if (user && user.uid) {
-            const { error } = await addAppraisalPost(values, user.uid);
+        if (user && user.uid && user.displayName) {
+            const { error } = await addAppraisalPost(values, user.uid, user.displayName);
             
             if (error) {
-                // エラーが発生した場合
                 throw new Error(`エラーが発生しました: ${error}`);
             }
             
@@ -64,11 +63,9 @@ export default function AssessmentForm() {
             throw new Error("ユーザー情報が不足しています");
         }
     } catch (err) {
-        // エラーをキャッチしてアラートを表示
         console.error(err);
         window.alert(err || "エラーが発生しました");
     } finally {
-        // 最終的にローディングを解除
         setIsLoading(false);
     }
 };
