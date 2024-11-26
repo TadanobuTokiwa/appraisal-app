@@ -10,9 +10,11 @@ export default function AssessmentDetail() {
             <Header />
             <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
-                    <div className='grid grid-cols-3'>
+                    <div className='md:grid md:grid-cols-3'>
                         <h1 className="text-3xl font-bold text-center text-indigo-900 mb-4 md:mb-8 md:col-span-2">査定依頼詳細</h1>
-                        <ReturntoHomeButton />
+                        <div className='flex mb-5 md:mb-0'>
+                            <ReturntoHomeButton />
+                        </div>
                     </div>
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div className="lg:col-span-2">
