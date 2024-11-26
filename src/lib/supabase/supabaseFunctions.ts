@@ -106,6 +106,21 @@ export const getTodayAppraisalPostsByUser = async (username: string) => {
     return { data, error: null };
 };
 
+export const getNotSupportedPosts = async () => {
+
+    const { data, error } = await supabase
+        .from('appraisal_posts')
+        .select('*')
+        .eq('status', '未対応');
+
+    if (error) {
+        console.error('データ取得エラー:', error.message);
+        return { data: null, error };
+    }
+
+    return { data, error: null };
+};
+
 export const getAppraisalPostById = async (id: number):Promise<appraisal_posts[] | null> => {
     try {
         const { data, error } = await supabase

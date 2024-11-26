@@ -2,12 +2,33 @@
 
 import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Eye, ArrowRight } from 'lucide-react'
+import { Eye, ArrowRight, Loader } from 'lucide-react'
 import Header from '@/features/components/Header'
-// import PostsList from '@/features/PostsList'
+import PostsList from '@/features/PostsList'
 import ProtectedRoute from '@/app/protectedRoute'
+import { useEffect, useState } from 'react'
+import { appraisal_posts } from '@/types/supabaseTableTypes'
+import { getNotSupportedPosts } from '@/lib/supabase/supabaseFunctions'
 
 export default function MenuScreen() {
+
+    const [ notSupportedList, setNotSupportedList ] = useState<appraisal_posts[] | null>(null)
+    const [ isloading, setIsloading ] = useState(true)
+
+    useEffect(() => {
+        const getList = async() => {
+            setIsloading(true)
+
+            const { data } = await getNotSupportedPosts()
+            if(data){
+                setNotSupportedList(data)
+            }
+
+            setIsloading(false)
+        }
+
+        getList()
+    }, [])
     
     return (
         <ProtectedRoute>
@@ -33,7 +54,15 @@ export default function MenuScreen() {
                 <CardTitle className="text-2xl font-bold text-indigo-900">未対応 の 投稿</CardTitle>
             </CardHeader>
             <CardContent>
-                {/*<PostsList posts={nonCompllantPosts} />*/}
+                {
+                    isloading ?
+                    <>
+                        <Loader className="w-4 h-4 mr-2 animate-spin" />
+                        <span className="font-bold">読み込み中...</span> 
+                    </> 
+                    :
+                    <PostsList posts={notSupportedList} />
+                }
             </CardContent>
             </Card>
         </div>
