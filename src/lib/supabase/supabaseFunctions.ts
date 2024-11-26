@@ -44,6 +44,7 @@ export const addAppraisalPost = async (values: FormSchemaType, userid: string, u
             poster: userid,
             posterName: username,
             images: imageUrls,
+            status: "未対応",
         };
 
         const { data, error } = await supabase
