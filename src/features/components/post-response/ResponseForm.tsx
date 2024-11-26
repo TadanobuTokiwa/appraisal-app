@@ -156,7 +156,7 @@ const ResponseForm = () => {
                 </div>
                 <div className="space-y-2">
                     <Label className="text-lg font-semibold text-gray-700">投稿者</Label>
-                    <p className="text-gray-600">{initialAssessmentData.poster}</p>
+                    <p className="text-gray-600">{initialAssessmentData.posterName}</p>
                 </div>
                 </div>
 
