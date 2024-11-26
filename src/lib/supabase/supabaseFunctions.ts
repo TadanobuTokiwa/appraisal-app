@@ -106,6 +106,23 @@ export const getTodayAppraisalPostsByUser = async (username: string) => {
     return { data, error: null };
 };
 
+export const getAppraisalPosts = async (username: string, targetDate: string) => {
+
+    const { data, error } = await supabase
+        .from('appraisal_posts')
+        .select('*')
+        .eq('posterName', username)
+        .gte('created_at', `${targetDate}T00:00:00`)
+        .lt('created_at', `${targetDate}T23:59:59`);
+
+    if (error) {
+        console.error('データ取得エラー:', error.message);
+        return { data: null, error };
+    }
+
+    return { data, error: null };
+};
+
 export const getNotSupportedPosts = async () => {
 
     const { data, error } = await supabase

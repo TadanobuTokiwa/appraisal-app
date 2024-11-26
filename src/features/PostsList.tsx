@@ -14,10 +14,10 @@ const PostsList = ({ posts }: propsType) => {
                     <TableRow>
                         <TableHead className="w-[120px]">サムネイル</TableHead>
                         <TableHead className="w-[80px]">ID</TableHead>
-                        <TableHead>ブランド名</TableHead>
-                        <TableHead>モデル名</TableHead>
-                        <TableHead>投稿日時</TableHead>
-                        <TableHead>投稿者</TableHead>
+                        <TableHead className='hidden sm:table-cell'>ブランド名</TableHead>
+                        <TableHead className='hidden sm:table-cell'>モデル名</TableHead>
+                        <TableHead className='hidden sm:table-cell'>投稿日時</TableHead>
+                        <TableHead className='hidden sm:table-cell'>投稿者</TableHead>
                         <TableHead>ステータス</TableHead>
                         <TableHead></TableHead>
                     </TableRow>
@@ -38,10 +38,10 @@ const PostsList = ({ posts }: propsType) => {
                                 />
                             </TableCell>
                             <TableCell className="font-medium">{post.id}</TableCell>
-                            <TableCell>{post.brand}</TableCell>
-                            <TableCell>{post.modelName}</TableCell>
-                            <TableCell>{date + " " + time}</TableCell>
-                            <TableCell>{post.posterName}</TableCell>
+                            <TableCell className='hidden sm:table-cell'>{post.brand}</TableCell>
+                            <TableCell className='hidden sm:table-cell'>{post.modelName}</TableCell>
+                            <TableCell className='hidden sm:table-cell'>{date + " " + time}</TableCell>
+                            <TableCell className='hidden sm:table-cell'>{post.posterName}</TableCell>
                             <TableCell>
                                 <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
                                 post.status === '対応済み' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
