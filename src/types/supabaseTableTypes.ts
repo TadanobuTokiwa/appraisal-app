@@ -11,6 +11,7 @@ export type appraisal_posts = {
     conditionDetails: string,
     notes: string,
     poster: string,
+    posterName: string,
     images: string,
     respondent: string,
     responsed_at: string,

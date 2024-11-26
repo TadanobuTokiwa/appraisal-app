@@ -75,7 +75,7 @@ const ResponseForm = () => {
 
     const onSubmit = async(values: z.infer<typeof responseSchema>) => {
         try {
-            if(user?.displayName){
+            if(user?.uid){
                 const newPost = {
                     ...initialAssessmentData,
                     ...values,

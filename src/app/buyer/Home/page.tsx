@@ -21,9 +21,9 @@ const Page = () => {
 
     useEffect(() => {
         const fetchPosts = async () => {
-            if (user && user.displayName) {
+            if (user && user.uid) {
                 try {
-                    const { data, error } = await getTodayAppraisalPostsByUser(user.displayName);
+                    const { data, error } = await getTodayAppraisalPostsByUser(user.uid);
                     if (error) {
                         throw new Error(error.message);
                     }
