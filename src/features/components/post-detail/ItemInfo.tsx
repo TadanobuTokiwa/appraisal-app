@@ -70,7 +70,13 @@ const ItemInfo = () => {
         <CardHeader>
             <CardTitle className="grid grid-cols-1 sm:flex sm:justify-between text-2xl font-bold text-indigo-900">
                 <strong>商品情報</strong>
-                <em className='text-xl pt-1'>{isLoading ? "Loading..." : "ステータス : " + assessmentData?.status}</em>
+                <em className='text-xl pt-1'>
+                    {isLoading ? 
+                        <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                    : 
+                        "ステータス : " + assessmentData?.status
+                    }
+                </em>
                 <div className='flex'>
                     <Button onClick={() => setReload(prev => !prev)}>
                         <RefreshCw />

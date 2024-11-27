@@ -9,7 +9,7 @@ import PostsList from '@/features/PostsList'
 import { useAuth } from '@/context/AuthContext'
 import ProtectedRoute from '@/app/protectedRoute'
 import { getTodayAppraisalPostsByUser } from '@/lib/supabase/supabaseFunctions'
-import { Loader, RefreshCw } from "lucide-react"
+import { RefreshCw } from "lucide-react"
 import { appraisal_posts } from '@/types/supabaseTableTypes'
 import { Button } from '@/components/ui/button'
 
@@ -88,16 +88,10 @@ const Page = () => {
             </CardHeader>
             <CardContent>
                 {
-                    loading ?
-                    <>
-                        <Loader className="w-4 h-4 mr-2 animate-spin" />
-                        <span className="font-bold">読み込み中...</span> 
-                    </> 
-                    :
                     error ?
                     <span>{error}</span>
                     :
-                    <PostsList posts={posts} />
+                    <PostsList posts={posts} loading={loading} />
                 }
             </CardContent>
             </Card>
