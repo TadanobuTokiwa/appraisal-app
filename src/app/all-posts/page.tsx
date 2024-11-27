@@ -13,6 +13,7 @@ import Header from '@/features/components/Header'
 import { appraisal_posts } from '@/types/supabaseTableTypes'
 import { getAppraisalPosts } from '@/lib/supabase/supabaseFunctions'
 import ItemsList from '@/features/PostsList'
+import ReturntoHomeButton from '@/features/ReturntoHomeButton'
 
 export default function AllPosts() {
     const [searchDate, setSearchDate] = useState<Date | undefined>()
@@ -44,7 +45,12 @@ export default function AllPosts() {
             <Header />
             <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
-                    <h1 className="text-3xl font-bold text-center text-indigo-900 mb-8">全ての投稿</h1>
+                    <div className='md:grid md:grid-cols-3'>
+                        <h1 className="text-3xl font-bold text-center text-indigo-900 mb-4 md:mb-8 md:col-span-2">全ての投稿</h1>
+                        <div className='flex mb-5 md:mb-0'>
+                                <ReturntoHomeButton />
+                        </div>
+                    </div>
                     <Card className="mb-8">
                         <CardHeader>
                             <CardTitle className="text-2xl font-bold text-indigo-900">検索</CardTitle>
