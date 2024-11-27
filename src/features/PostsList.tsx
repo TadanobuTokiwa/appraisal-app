@@ -4,11 +4,17 @@ import { appraisal_posts } from '@/types/supabaseTableTypes'
 
 type propsType = {
     posts : appraisal_posts[] | null
+    loading: boolean
 }
 
-const PostsList = ({ posts }: propsType) => {
+const PostsList = ({ posts, loading }: propsType) => {
     return (
-        <div className="overflow-x-auto -mx-6 px-6">
+        <div className="relative overflow-x-auto -mx-6 px-6">
+            {loading && (
+                <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-70">
+                    <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                </div>
+            )}
             <Table>
                 <TableHeader>
                     <TableRow>

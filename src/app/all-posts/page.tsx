@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Calendar as CalendarIcon, Loader, Search } from 'lucide-react'
+import { Calendar as CalendarIcon, Search } from 'lucide-react'
 import { format } from "date-fns"
 import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -94,14 +94,7 @@ export default function AllPosts() {
                             <CardTitle className="text-2xl font-bold text-indigo-900">投稿一覧</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            {isLoading ?
-                                <>
-                                    <Loader className="w-4 h-4 mr-2 animate-spin" />
-                                    <span className="font-bold">読み込み中...</span> 
-                                </> 
-                                :
-                                <ItemsList posts={posts} />
-                            }
+                            <ItemsList posts={posts} loading={isLoading} />
                         </CardContent>
                     </Card>
                 </div>

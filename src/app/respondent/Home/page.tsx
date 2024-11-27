@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Eye, ArrowRight, Loader, RefreshCw } from 'lucide-react'
+import { Eye, ArrowRight, RefreshCw } from 'lucide-react'
 import Header from '@/features/components/Header'
 import PostsList from '@/features/PostsList'
 import ProtectedRoute from '@/app/protectedRoute'
@@ -62,15 +62,7 @@ export default function MenuScreen() {
                 </CardTitle>
             </CardHeader>
             <CardContent>
-                {
-                    isloading ?
-                    <>
-                        <Loader className="w-4 h-4 mr-2 animate-spin" />
-                        <span className="font-bold">読み込み中...</span> 
-                    </> 
-                    :
-                    <PostsList posts={notSupportedList} />
-                }
+                <PostsList posts={notSupportedList} loading={isloading} />
             </CardContent>
             </Card>
         </div>
