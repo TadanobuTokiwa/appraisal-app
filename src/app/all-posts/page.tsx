@@ -1,10 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Calendar as CalendarIcon, Search } from 'lucide-react'
+import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, Search } from 'lucide-react'
 import { format } from "date-fns"
 import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -20,6 +20,9 @@ export default function AllPosts() {
     const [searchPoster, setSearchPoster] = useState("")
     const [ posts , setPosts ] = useState<appraisal_posts[] | null>(null)
     const [ isLoading, setIsloading ] = useState<boolean>(false);
+    const [ currentPage, setCurrentPage ] = useState<number>(1);
+
+    const itemsPerPage = 10;
 
     const handleSearch = async() => {
         if( searchDate && searchPoster ){
@@ -32,6 +35,7 @@ export default function AllPosts() {
                 window.alert("エラー: " + error.message)
             }else{
                 setPosts(data)
+                setCurrentPage(1)
             }
 
             setIsloading(false)
@@ -39,6 +43,8 @@ export default function AllPosts() {
             window.alert("検索値を設定してください")
         }
     }
+
+    const totalPages = posts ? Math.ceil(posts.length / itemsPerPage) : 0;
 
     return (
         <>
@@ -100,8 +106,38 @@ export default function AllPosts() {
                             <CardTitle className="text-2xl font-bold text-indigo-900">投稿一覧</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <ItemsList posts={posts} loading={isLoading} />
+                            <ItemsList posts={posts} loading={isLoading} currentPage={currentPage} itemsPerPage={itemsPerPage} />
                         </CardContent>
+                        <CardFooter className="flex justify-center gap-2">
+                        {
+                            totalPages ?
+                            <>
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                                    disabled={currentPage === 1}
+                                >
+                                    <ChevronLeft className="h-4 w-4" />
+                                    <strong className='hidden sm:inline'>前へ</strong>
+                                </Button>
+                                <span className="text-sm">
+                                    {currentPage} / {totalPages}
+                                </span>
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                                    disabled={currentPage === totalPages}
+                                >
+                                    <strong className='hidden sm:inline'>次へ</strong>
+                                    <ChevronRight className="h-4 w-4" />
+                                </Button>
+                            </>
+                            :
+                            <></>
+                        }
+                        </CardFooter>
                     </Card>
                 </div>
             </div>
