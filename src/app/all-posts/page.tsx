@@ -29,7 +29,7 @@ export default function AllPosts() {
             const {data , error} = await getAppraisalPosts(searchPoster, targetDate)
 
             if(error){
-                window.alert("エラー")
+                window.alert("エラー: " + error.message)
             }else{
                 setPosts(data)
             }
