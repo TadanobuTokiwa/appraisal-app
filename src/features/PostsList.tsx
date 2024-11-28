@@ -28,8 +28,8 @@ const PostsList = ({ posts, loading, currentPage = 0, itemsPerPage = 0 }: propsT
             <Table>
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="w-[120px]">サムネイル</TableHead>
-                        <TableHead className="w-[80px]">ID</TableHead>
+                        <TableHead className="w-[80px] lg:w-[120px]">サムネイル</TableHead>
+                        <TableHead className="w-[50px]">ID</TableHead>
                         <TableHead className='hidden sm:table-cell'>ブランド名</TableHead>
                         <TableHead className='hidden sm:table-cell'>モデル名</TableHead>
                         <TableHead className='hidden sm:table-cell'>投稿日時</TableHead>
