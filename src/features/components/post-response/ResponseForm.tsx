@@ -88,13 +88,13 @@ const ResponseForm = () => {
                 if( !error ) {
                     router.push(`/post-detail/${id}`)
                 }else{
-                    window.alert("エラーが発生しました")
+                    window.alert("エラー: " + error)
                 }
             }else{
                 window.alert("エラーが発生しました")
             }
-        }catch{
-            window.alert("エラーが発生しました")
+        }catch(error: any){
+            window.alert("エラー: " + error)
         }
     }
 

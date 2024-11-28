@@ -26,7 +26,7 @@ const Page = () => {
         if(user && user.displayName && user.email){
             const { error } = await addUser(user.uid, user.displayName, user.email, type)
             if(error){
-                window.alert("【エラー】")
+                window.alert("エラー:" + error.message)
                 setIsLoading(false)
                 return
             }

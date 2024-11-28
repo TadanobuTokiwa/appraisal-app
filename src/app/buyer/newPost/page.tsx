@@ -55,16 +55,15 @@ export default function AssessmentForm() {
             const { error } = await addAppraisalPost(values, user.uid, user.displayName);
             
             if (error) {
-                throw new Error(`エラーが発生しました: ${error}`);
+                window.alert("エラー: " + error);
             }
             
             await router.push("/buyer/Home");
         } else {
-            throw new Error("ユーザー情報が不足しています");
+            window.alert("ユーザー情報が不足しています");
         }
     } catch (err) {
-        console.error(err);
-        window.alert(err || "エラーが発生しました");
+        window.alert("エラー: " + err);
     } finally {
         setIsLoading(false);
     }

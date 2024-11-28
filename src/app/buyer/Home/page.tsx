@@ -28,7 +28,7 @@ const Page = () => {
                 try {
                     const { data, error } = await getTodayAppraisalPostsByUser(user.uid);
                     if (error) {
-                        throw new Error(error.message);
+                        window.alert("エラー: " + error.message);
                     }
                     setPosts(data);
                 } catch (err: any) {
