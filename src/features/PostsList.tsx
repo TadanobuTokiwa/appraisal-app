@@ -5,9 +5,19 @@ import { appraisal_posts } from '@/types/supabaseTableTypes'
 type propsType = {
     posts : appraisal_posts[] | null
     loading: boolean
+    currentPage?: number
+    itemsPerPage?: number
 }
 
-const PostsList = ({ posts, loading }: propsType) => {
+const PostsList = ({ posts, loading, currentPage = 0, itemsPerPage = 0 }: propsType) => {
+
+    if(currentPage && itemsPerPage && posts){
+        posts = posts.slice(
+            (currentPage - 1) * itemsPerPage,
+            currentPage * itemsPerPage
+        )
+    }
+
     return (
         <div className="relative overflow-x-auto -mx-6 px-6">
             {loading && (
@@ -18,8 +28,8 @@ const PostsList = ({ posts, loading }: propsType) => {
             <Table>
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="w-[120px]">サムネイル</TableHead>
-                        <TableHead className="w-[80px]">ID</TableHead>
+                        <TableHead className="w-[80px] lg:w-[120px]">サムネイル</TableHead>
+                        <TableHead className="w-[50px]">ID</TableHead>
                         <TableHead className='hidden sm:table-cell'>ブランド名</TableHead>
                         <TableHead className='hidden sm:table-cell'>モデル名</TableHead>
                         <TableHead className='hidden sm:table-cell'>投稿日時</TableHead>
